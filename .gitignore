@@ -1,0 +1,7 @@
+*
+!*/
+!*/include/*/*
+!*.hpp
+!*.cpp
+!*.h
+!*.gitignore
