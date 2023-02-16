@@ -2,6 +2,9 @@
 // Structures mémoires pour une collection de films.
 
 #include <string>
+#include <memory>
+
+using namespace std;
 
 struct Film; struct Acteur; // Permet d'utiliser les types alors qu'ils seront défini après.
 
@@ -32,7 +35,7 @@ struct ListeFilms {
 
 struct ListeActeurs {
 	int capacite, nElements;
-	Acteur** elements; // Pointeur vers un tableau de Acteur*, chaque Acteur* pointant vers un Acteur.
+	unique_ptr<Acteur* []> elements = make_unique<Acteur* []>(capacite); // Pointeur vers un tableau de Acteur*, chaque Acteur* pointant vers un Acteur.
 };
 
 struct Film
