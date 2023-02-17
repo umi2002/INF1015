@@ -111,7 +111,7 @@ void enleverFilm(Film& film, ListeFilms& listeFilms)
 
 //TODO: Une fonction pour trouver un Acteur par son nom dans une ListeFilms, qui retourne un pointeur vers l'acteur, ou nullptr si l'acteur n'est pas trouvé.  Devrait utiliser span.
 
-Acteur* trouverActeur(const std::string nom, const ListeFilms listeFilms)
+shared_ptr<Acteur> trouverActeur(const std::string nom, const ListeFilms listeFilms)
 {
 	int nElements = listeFilms.nElements;
 	span<Film*> spanFilms = span(listeFilms.elements, nElements);
@@ -119,7 +119,7 @@ Acteur* trouverActeur(const std::string nom, const ListeFilms listeFilms)
 	{
 		for (int j : range((*film).acteurs.nElements))
 		{
-			Acteur* ptrActeur = (*film).acteurs.elements[j];
+			shared_ptr<Acteur> ptrActeur = (*film).acteurs.elements[j];
 			if ((*ptrActeur).nom == nom)
 			{
 				return ptrActeur;
@@ -131,7 +131,7 @@ Acteur* trouverActeur(const std::string nom, const ListeFilms listeFilms)
 
 //TODO: Compléter les fonctions pour lire le fichier et créer/allouer une ListeFilms.  La ListeFilms devra être passée entre les fonctions, pour vérifier l'existence d'un Acteur avant de l'allouer à nouveau (cherché par nom en utilisant la fonction ci-dessus).
 
-Acteur* lireActeur(istream& fichier, const ListeFilms listeFilms)
+shared_ptr<Acteur> lireActeur(istream& fichier, const ListeFilms listeFilms)
 {
 	Acteur acteur = {};
 	acteur.nom            = lireString(fichier);
@@ -144,7 +144,7 @@ Acteur* lireActeur(istream& fichier, const ListeFilms listeFilms)
 	}
 	else
 	{
-		Acteur* ptrActeur = new Acteur();
+		shared_ptr<Acteur> ptrActeur = make_shared<Acteur>();
 		(*ptrActeur).nom = acteur.nom;
 		(*ptrActeur).anneeNaissance = acteur.anneeNaissance;
 		(*ptrActeur).sexe = acteur.sexe;
@@ -155,7 +155,7 @@ Acteur* lireActeur(istream& fichier, const ListeFilms listeFilms)
 	//TODO: Retourner un pointeur soit vers un acteur existant ou un nouvel acteur ayant les bonnes informations, selon si l'acteur existait déjà.  Pour fins de débogage, affichez les noms des acteurs crées; vous ne devriez pas voir le même nom d'acteur affiché deux fois pour la création.
 }
 
-Film* lireFilm(istream& fichier, ListeFilms& listeFilms)
+Film* lireFilm(istream& fichier, ListeFilms& listeFilms) 
 {
 	Film film = {};
 	film.titre       = lireString(fichier);
@@ -169,17 +169,17 @@ Film* lireFilm(istream& fichier, ListeFilms& listeFilms)
 	(*ptrFilm).realisateur = film.realisateur;
 	(*ptrFilm).anneeSortie = film.anneeSortie;
 	(*ptrFilm).recette = film.recette;
-	(*ptrFilm).acteurs.nElements = film.acteurs.nElements;
+	(*ptrFilm).acteurs = move(film.acteurs);
 
 	int capacite = film.acteurs.nElements;
-	film.acteurs.capacite = capacite;
-	(*ptrFilm).acteurs.elements = make_unique<Acteur* []>(capacite);
+	(*ptrFilm).acteurs.capacite = capacite;
+	(*ptrFilm).acteurs.elements = make_unique<shared_ptr<Acteur>[]>(capacite);
 
 	for (int i : range(capacite))
 	{
-		film.acteurs.elements[i] = lireActeur(fichier, listeFilms); //TODO: Placer l'acteur au bon endroit dans les acteurs du film.
-		ListeFilms& filmsJoueDans = (*film.acteurs.elements[i]).joueDans;
-		ajouterFilm(*ptrFilm, filmsJoueDans); //TODO: Ajouter le film à la liste des films dans lesquels l'acteur joue.
+		(*ptrFilm).acteurs.elements[i] = lireActeur(fichier, listeFilms); //TODO: Placer l'acteur au bon endroit dans les acteurs du film.
+		//ListeFilms& filmsJoueDans = (*(*ptrFilm).acteurs.elements[i]).joueDans;
+		//ajouterFilm(*ptrFilm, filmsJoueDans); //TODO: Ajouter le film à la liste des films dans lesquels l'acteur joue.
 	}
 	return ptrFilm; //TODO: Retourner le pointeur vers le nouveau film.
 }
@@ -195,7 +195,7 @@ ListeFilms creerListe(string nomFichier)
 	ListeFilms listeFilms = {};
 	for (int i = 0; i < nElements; i++)
 	{
-		Film& film = *(lireFilm(fichier, listeFilms));
+		Film& film = (*lireFilm(fichier, listeFilms));
 		ajouterFilm(film, listeFilms); //TODO: Ajouter le film à la liste.
 	}
 	
@@ -209,17 +209,16 @@ void detruireFilm(Film& film)
 	int nActeurs = film.acteurs.nElements;
 	for (int i : range(nActeurs))
 	{
-		Acteur*& acteur = film.acteurs.elements[i];
-		ListeFilms& filmsJoueDans = (*acteur).joueDans;
-		enleverFilm(film, filmsJoueDans);
+		shared_ptr<Acteur>& acteur = film.acteurs.elements[i];
+		//ListeFilms& filmsJoueDans = (*acteur).joueDans;
+		//enleverFilm(film, filmsJoueDans);
 
-		int nFilmsJoueDans = (*acteur).joueDans.nElements;
-		if (nFilmsJoueDans == 0)
-		{
-			cout << (*acteur).nom << "\n";
-			delete[] filmsJoueDans.elements;
-			delete acteur;
-		}
+		//int nFilmsJoueDans = (*acteur).joueDans.nElements;
+		//if (nFilmsJoueDans == 0)
+		//{
+		//	cout << (*acteur).nom << "\n";
+		//	delete[] filmsJoueDans.elements;
+		//}
 	}
 	delete &film;
 }
@@ -275,15 +274,15 @@ void afficherListeFilms(const ListeFilms& listeFilms)
 	}
 }
 
-void afficherFilmographieActeur(const ListeFilms& listeFilms, const string& nomActeur)
-{
-	//TODO: Utiliser votre fonction pour trouver l'acteur (au lieu de le mettre à nullptr).
-	const Acteur* acteur = trouverActeur(nomActeur, listeFilms);
-	if (acteur == nullptr)
-		cout << "Aucun acteur de ce nom" << endl;
-	else
-		afficherListeFilms(acteur->joueDans);
-}
+//void afficherFilmographieActeur(const ListeFilms& listeFilms, const string& nomActeur)
+//{
+//	//TODO: Utiliser votre fonction pour trouver l'acteur (au lieu de le mettre à nullptr).
+//	const Acteur* acteur = trouverActeur(nomActeur, listeFilms);
+//	if (acteur == nullptr)
+//		cout << "Aucun acteur de ce nom" << endl;
+//	else
+//		afficherListeFilms(acteur->joueDans);
+//}
 int main()
 {
 	bibliotheque_cours::activerCouleursAnsi();  // Permet sous Windows les "ANSI escape code" pour changer de couleurs https://en.wikipedia.org/wiki/ANSI_escape_code ; les consoles Linux/Mac les supportent normalement par défaut.
@@ -308,7 +307,7 @@ int main()
 	
 	cout << ligneDeSeparation << "Liste des films où Benedict Cumberbatch joue sont:" << endl;
 	//TODO: Afficher la liste des films où Benedict Cumberbatch joue.  Il devrait y avoir Le Hobbit et Le jeu de l'imitation.
-	afficherFilmographieActeur(listeFilms, "Benedict Cumberbatch");
+	//afficherFilmographieActeur(listeFilms, "Benedict Cumberbatch");
 	
 	//TODO: Détruire et enlever le premier film de la liste (Alien).  Ceci devrait "automatiquement" (par ce que font vos fonctions) détruire les acteurs Tom Skerritt et John Hurt, mais pas Sigourney Weaver puisqu'elle joue aussi dans Avatar.
 	detruireFilm(*(listeFilms.elements[0]));
@@ -319,7 +318,7 @@ int main()
 	afficherListeFilms(listeFilms);
 	
 	//TODO: Faire les appels qui manquent pour avoir 0% de lignes non exécutées dans le programme (aucune ligne rouge dans la couverture de code; c'est normal que les lignes de "new" et "delete" soient jaunes).  Vous avez aussi le droit d'effacer les lignes du programmes qui ne sont pas exécutée, si finalement vous pensez qu'elle ne sont pas utiles.
-	afficherFilmographieActeur(listeFilms, "");
+	//afficherFilmographieActeur(listeFilms, "");
 	
 	//TODO: Détruire tout avant de terminer le programme.  La bibliothèque de verification_allocation devrait afficher "Aucune fuite detectee." a la sortie du programme; il affichera "Fuite detectee:" avec la liste des blocs, s'il manque des delete.
 	detruireListeFilms(listeFilms);

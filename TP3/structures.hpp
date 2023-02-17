@@ -9,8 +9,8 @@ using namespace std;
 struct Film; struct Acteur; // Permet d'utiliser les types alors qu'ils seront défini après.
 
 struct ListeFilms {
-	int capacite, nElements;
-	Film** elements; // Pointeur vers un tableau de Film*, chaque Film* pointant vers un Film.
+	int capacite = 0, nElements = 0;
+	Film** elements = nullptr; // Pointeur vers un tableau de Film*, chaque Film* pointant vers un Film.
 };
 
 //class ListeFilms
@@ -35,18 +35,18 @@ struct ListeFilms {
 
 struct ListeActeurs {
 	int capacite, nElements;
-	unique_ptr<Acteur* []> elements = make_unique<Acteur* []>(capacite); // Pointeur vers un tableau de Acteur*, chaque Acteur* pointant vers un Acteur.
+	unique_ptr<shared_ptr<Acteur>[]> elements = make_unique<shared_ptr<Acteur>[]>(capacite); // Pointeur vers un tableau de Acteur*, chaque Acteur* pointant vers un Acteur.
 };
 
 struct Film
 {
-	std::string titre, realisateur; // Titre et nom du réalisateur (on suppose qu'il n'y a qu'un réalisateur).
-	int anneeSortie, recette; // Année de sortie et recette globale du film en millions de dollars
-	ListeActeurs acteurs;
+	std::string titre = "", realisateur = ""; // Titre et nom du réalisateur (on suppose qu'il n'y a qu'un réalisateur).
+	int anneeSortie = 0, recette = 0; // Année de sortie et recette globale du film en millions de dollars
+	ListeActeurs acteurs{};
 };
 
 struct Acteur
 {
-	std::string nom; int anneeNaissance; char sexe;
-	ListeFilms joueDans;
+	std::string nom = ""; int anneeNaissance = 0; char sexe = '\0';
+	//ListeFilms joueDans{};
 };
