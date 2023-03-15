@@ -244,7 +244,7 @@ Film* lireFilm(istream& fichier, ListeFilms& listeFilms)
 	(*ptrFilm).realisateur = film.realisateur;
 	(*ptrFilm).anneeSortie = film.anneeSortie;
 	(*ptrFilm).recette = film.recette;
-	(*ptrFilm).acteurs = move(film.acteurs);
+	(*ptrFilm).acteurs = film.acteurs;
 
 	int capacite = (*ptrFilm).acteurs.obtenirNElements();
 	ListeActeurs& listeActeurs = (*ptrFilm).acteurs;
@@ -303,12 +303,17 @@ Film::Film(const Film& film)
 	realisateur = film.realisateur;
 	anneeSortie = film.anneeSortie;
 	recette = film.recette;
-	int nElements = film.acteurs.obtenirNElements();
-	acteurs = ListeActeurs(nElements);
-	for (int i = 0; i < nElements; i++)
-	{
-		acteurs[i] = film.acteurs[i];
-	}
+	acteurs = film.acteurs;
+}
+
+Film& Film::operator=(const Film& film)
+{
+	titre = film.titre;
+	realisateur = film.realisateur;
+	anneeSortie = film.anneeSortie;
+	recette = film.recette;
+	acteurs = film.acteurs;
+	return *this;
 }
 
 ostream& operator<<(ostream& os, const Film& film)
@@ -377,4 +382,14 @@ int main()
 
 	//TODO: Détruire tout avant de terminer le programme.  La bibliothèque de verification_allocation devrait afficher "Aucune fuite detectee." a la sortie du programme; il affichera "Fuite detectee:" avec la liste des blocs, s'il manque des delete.
 	listeFilms.detruireListeFilms();
+
+	cout << ligneDeSeparation;
+	Liste<string> listeTextes = Liste<string>(2);
+	listeTextes[0] = make_shared<string>("Bonjour");
+	listeTextes[1] = make_shared<string>("Hi");
+	Liste<string> listeTextes2 = listeTextes;
+	listeTextes[0] = make_shared<string>("Allo");
+	*listeTextes[1] += "!";
+	cout << *listeTextes[0] << " " << *listeTextes[1] << "\n";
+	cout << *listeTextes2[0] << " " << *listeTextes2[1] << "\n";
 }

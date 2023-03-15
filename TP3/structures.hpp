@@ -37,44 +37,80 @@ private:
 	Film** elements_;
 };
 
-class ListeActeurs {
+template <typename T>
+class Liste
+{
 public:
-	ListeActeurs(int nElements);
+	Liste(int nElements);
+	Liste(const Liste<T>& liste);
+	Liste<T>& operator=(const Liste<T>& liste);
 	int obtenirNElements() const;
 	int obtenirCapacite() const;
-	shared_ptr<Acteur>& operator[](int index);
-	const shared_ptr<Acteur>& operator[](int index) const;
+	shared_ptr<T>& operator[](int index);
+	const shared_ptr<T>& operator[](int index) const;
 private:
 	int capacite_ = 0, nElements_ = 0;
-	unique_ptr<shared_ptr<Acteur>[]> elements_ = make_unique<shared_ptr<Acteur>[]>(capacite_); // Pointeur vers un tableau de Acteur*, chaque Acteur* pointant vers un Acteur.
+	unique_ptr<shared_ptr<T>[]> elements_ = make_unique<shared_ptr<T>[]>(capacite_); // Pointeur vers un tableau de Acteur*, chaque Acteur* pointant vers un Acteur.
 };
 
-ListeActeurs::ListeActeurs(int nElements)
+template <typename T>
+Liste<T>::Liste(int nElements)
 {
 	nElements_ = nElements;
 	capacite_ = nElements_;
-	elements_ = make_unique<shared_ptr<Acteur>[]>(capacite_);
+	elements_ = make_unique<shared_ptr<T>[]>(capacite_);
 }
 
-int ListeActeurs::obtenirNElements() const
+template <typename T>
+Liste<T>::Liste(const Liste<T>& liste)
+{
+	nElements_ = liste.nElements_;
+	capacite_ = liste.capacite_;
+	elements_ = make_unique<shared_ptr<T>[]>(capacite_);
+	for (int i = 0; i < nElements_; i++)
+	{
+		elements_[i] = liste.elements_[i];
+	}
+}
+
+template <typename T>
+Liste<T>& Liste<T>::operator=(const Liste<T>& liste)
+{
+	nElements_ = liste.nElements_;
+	capacite_ = liste.capacite_;
+	elements_ = make_unique<shared_ptr<T>[]>(capacite_);
+	for (int i = 0; i < nElements_; i++)
+	{
+		elements_[i] = liste.elements_[i];
+	}
+	return *this;
+}
+
+template <typename T>
+int Liste<T>::obtenirNElements() const
 {
 	return nElements_;
 }
 
-int ListeActeurs::obtenirCapacite() const
+template <typename T>
+int Liste<T>::obtenirCapacite() const
 {
 	return capacite_;
 }
 
-shared_ptr<Acteur>& ListeActeurs::operator[](int index)
+template <typename T>
+shared_ptr<T>& Liste<T>::operator[](int index)
 {
 	return elements_[index];
 }
 
-const shared_ptr<Acteur>& ListeActeurs::operator[](int index) const
+template <typename T>
+const shared_ptr<T>& Liste<T>::operator[](int index) const
 {
 	return elements_[index];
 }
+
+using ListeActeurs = Liste<Acteur>;
 
 struct Acteur
 {
@@ -87,6 +123,7 @@ struct Film
 {
 	Film();
 	Film(const Film& film);
+	Film& operator=(const Film& film);
 	string titre = "", realisateur = ""; // Titre et nom du réalisateur (on suppose qu'il n'y a qu'un réalisateur).
 	int anneeSortie = 0, recette = 0; // Année de sortie et recette globale du film en millions de dollars
 	ListeActeurs acteurs = ListeActeurs(0);
