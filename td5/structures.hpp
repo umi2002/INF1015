@@ -42,16 +42,19 @@ public:
 	class iterator
 	{
 	public:
-		iterator(T* position = nullptr);
+		iterator(Liste<T>& liste, int position = 0);
 
-		T&        operator*();
+		shared_ptr<T>& operator*();
 		iterator& operator++();
 		iterator& operator--();
 
-		bool operator==(const iterator& autre) const = default;
+		bool operator==(const iterator& autre) const;
+		bool operator!=(const iterator& autre) const;
 
 	private:
-		T* position_;
+		Liste<T>& liste_;
+		int position_;
+
 	};
 
 	Liste(int nElements);
@@ -62,23 +65,26 @@ public:
 	shared_ptr<T>&       operator[](int index);
 	const shared_ptr<T>& operator[](int index) const;
 
+	bool operator==(const Liste<T>& autre) const;
+	bool operator!=(const Liste<T>& autre) const;
+
 	iterator begin();
 	iterator end();
 
 private:
-	int                         capacite_ = 0, nElements_ = 0;
-	unique_ptr<shared_ptr<T>[]> elements_ =
-		make_unique<shared_ptr<T>[]>(capacite_);
+	int capacite_ = 0, nElements_ = 0;
+	unique_ptr<shared_ptr<T>[]> elements_ = make_unique<shared_ptr<T>[]>(capacite_);
+
 };
 
 template<typename T>
-Liste<T>::iterator::iterator(T* position) : position_(position)
+Liste<T>::iterator::iterator(Liste<T>& liste, int position) : liste_(liste), position_(position)
 { }
 
 template<typename T>
-T& Liste<T>::iterator::operator*()
+shared_ptr<T>& Liste<T>::iterator::operator*()
 {
-	return *position_;
+	return liste_.elements_[position_];
 }
 
 template<typename T>
@@ -96,15 +102,15 @@ typename Liste<T>::iterator& Liste<T>::iterator::operator--()
 }
 
 template<typename T>
-typename Liste<T>::iterator Liste<T>::begin()
+bool Liste<T>::iterator::operator==(const iterator& autre) const
 {
-	return iterator(elements_[0].get());
+	return (liste_ == autre.liste_ && position_ == autre.position_);
 }
 
 template<typename T>
-typename Liste<T>::iterator Liste<T>::end()
+bool Liste<T>::iterator::operator!=(const iterator& autre) const
 {
-	return iterator(elements_[nElements_ - 1].get());
+	return !(*this == autre);
 }
 
 template<typename T>
@@ -164,6 +170,41 @@ const shared_ptr<T>& Liste<T>::operator[](int index) const
 	return elements_[index];
 }
 
+template<typename T>
+typename Liste<T>::iterator Liste<T>::begin()
+{
+	return iterator(*this, 0);
+}
+
+template<typename T>
+typename Liste<T>::iterator Liste<T>::end()
+{
+	return iterator(*this, nElements_);
+}
+
+template<typename T>
+bool Liste<T>::operator==(const Liste<T>& autre) const
+{
+	if (nElements_ != autre.nElements_)
+	{
+		return false;
+	}
+	for (int i = 0; i < nElements_; i++)
+	{
+		if (elements_[i] != autre.elements_[i])
+		{
+			return false;
+		}
+	}
+	return true;
+}
+
+template<typename T>
+bool Liste<T>::operator!=(const Liste<T>& autre) const
+{
+	return !(*this == autre);
+}
+
 using ListeActeurs = Liste<Acteur>;
 
 struct Acteur
@@ -187,10 +228,11 @@ public:
 	Item();
 	Item(string titre, int annee);
 	Item(const Film& film);
-	Item&        operator=(const Item& item);
+	Item& operator=(const Item& item);
+	bool operator<(const Item& autre) const;
+
 	friend Film* lireFilm(istream& fichier, ListeFilms& listeFilms);
-	friend shared_ptr<Acteur>
-				 ListeFilms::trouverActeur(const std::string nom) const;
+	friend shared_ptr<Acteur> ListeFilms::trouverActeur(const std::string nom) const;
 	virtual void afficher() const override;
 
 	string titre_;
@@ -216,10 +258,11 @@ public:
 	virtual void afficher() const override;
 
 	ListeActeurs acteurs_ = ListeActeurs(0);
-
-private:
 	string realisateur_ = "";
 	int    recette_     = 0;
+
+private:
+
 };
 
 class Livre : virtual public Item
