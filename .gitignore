@@ -4,4 +4,6 @@
 !*.hpp
 !*.cpp
 !*.h
+!*.txt
+!*.bin
 !*.gitignore

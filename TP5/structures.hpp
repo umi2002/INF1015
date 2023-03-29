@@ -6,6 +6,8 @@
 #include <iostream>
 #include <functional>
 
+#include "cppitertools/itertools.hpp"
+
 using namespace std;
 
 class Film; struct Acteur; // Permet d'utiliser les types alors qu'ils seront défini après.
@@ -36,6 +38,22 @@ template <typename T>
 class Liste
 {
 public:
+	class iterator
+	{
+		public:
+		iterator(shared_ptr<T> position);
+
+		T& operator*();
+		iterator& operator++();
+		iterator& operator--();
+
+		bool operator==(const iterator& autre) const = default;
+
+	private:
+		shared_ptr<T> position_;
+
+	};
+
 	Liste(int nElements);
 	Liste(const Liste<T>& liste);
 	Liste<T>& operator=(const Liste<T>& liste);
@@ -43,10 +61,51 @@ public:
 	int obtenirCapacite() const;
 	shared_ptr<T>& operator[](int index);
 	const shared_ptr<T>& operator[](int index) const;
+
+	iterator begin();
+	iterator end();
+
 private:
+
 	int capacite_ = 0, nElements_ = 0;
 	unique_ptr<shared_ptr<T>[]> elements_ = make_unique<shared_ptr<T>[]>(capacite_);
 };
+
+template <typename T>
+Liste<T>::iterator::iterator(shared_ptr<T> position)
+	: position_(position) {}
+
+template <typename T>
+T& Liste<T>::iterator::operator*()
+{
+	return *position_;
+}
+
+template <typename T>
+typename Liste<T>::iterator& Liste<T>::iterator::operator++()
+{
+	position_ = position_.get();
+	return *this;
+}
+
+template <typename T>
+typename Liste<T>::iterator& Liste<T>::iterator::operator--()
+{
+	position_.get()--;
+	return *this;
+}
+
+template <typename T>
+typename Liste<T>::iterator Liste<T>::begin()
+{
+	return iterator(elements_[0]);
+}
+
+template <typename T>
+typename Liste<T>::iterator Liste<T>::end()
+{
+	return iterator(elements_[nElements_ - 1]);
+}
 
 template <typename T>
 Liste<T>::Liste(int nElements)
@@ -116,8 +175,7 @@ struct Acteur
 class Affichable
 {
 public:
-	virtual const string afficherBase() const = 0;
-	virtual const string afficher() const = 0;
+	virtual void afficher() const = 0;
 	virtual ~Affichable() = default;
 };
 
@@ -130,11 +188,11 @@ public:
 	Item& operator=(const Item& item);
 	friend Film* lireFilm(istream& fichier, ListeFilms& listeFilms);
 	friend shared_ptr<Acteur> ListeFilms::trouverActeur(const std::string nom) const;
-	virtual const string afficherBase() const override;
-	virtual const string afficher() const override;
+	virtual void afficher() const override;
+
+	string titre_;
 
 private:
-	string titre_;
 	int annee_;
 
 };
@@ -148,12 +206,13 @@ public:
 	Film(string titre, int annee, string realisateur, int recette, ListeActeurs acteurs);
 	friend Film* lireFilm(istream& fichier, ListeFilms& listeFilms);
 	friend shared_ptr<Acteur> ListeFilms::trouverActeur(const std::string nom) const;
-	virtual const string afficher() const override;
+	virtual void afficher() const override;
+
+	ListeActeurs acteurs_ = ListeActeurs(0);
 
 private:
 	string realisateur_ = "";
 	int recette_ = 0;
-	ListeActeurs acteurs_ = ListeActeurs(0);
 
 };
 
@@ -162,7 +221,7 @@ class Livre : virtual public Item
 	public:
 	Livre();
 	Livre(string titre, int annee, string auteur, int copiesVendus, int nPages);
-	virtual const string afficher() const override;
+	virtual void afficher() const override;
 
 private:
 	string auteur_;
@@ -175,7 +234,7 @@ class FilmLivre: public Film, public Livre
 {
 public:
 	FilmLivre(Film film, Livre livre);
-	virtual const string afficher() const override;
+	virtual void afficher() const override;
 
 private:
 
