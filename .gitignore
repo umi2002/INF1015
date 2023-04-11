@@ -7,3 +7,4 @@
 !*.txt
 !*.bin
 !*.gitignore
+!**/Makefile
