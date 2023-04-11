@@ -66,6 +66,19 @@ Board::Board()
 	}
 }
 
+Board::Board(const Board& other)
+{
+	for (int i : iter::range(board::SIZE))
+	{
+		for (int j : iter::range(board::SIZE))
+		{
+			board_[i][j] = other.board_[i][j];
+		}
+	}
+	activePieces_ = other.activePieces_;
+	turn_         = other.turn_;
+}
+
 Board::~Board() { }
 
 bool Board::isTurn(bool player) const
@@ -105,37 +118,33 @@ bool Board::isValidMove(const std::pair<int, int> coordinates,
 
 void Board::checkForCheck(bool player)
 {
+	bool& kingInCheck = player ? whiteKingInCheck_ : blackKingInCheck_;
+    kingInCheck = false;
+
 	for (const std::shared_ptr<Piece>& piece : activePieces_)
 	{
 		if (piece->getPlayer() == player)
 		{
-			return;
+            continue;
 		}
 
 		if (!piece->threatensKing(*this))
 		{
-			return;
+            continue;
 		}
 
-		if (player)
-		{
-			whiteKingInCheck_ = true;
-		}
-		else
-		{
-			blackKingInCheck_ = true;
-		}
+        kingInCheck = true
 	}
 }
 
 bool Board::isWhiteKingInCheck() const
 {
-    return whiteKingInCheck_;
+	return whiteKingInCheck_;
 }
 
 bool Board::isBlackKingInCheck() const
 {
-    return blackKingInCheck_;
+	return blackKingInCheck_;
 }
 
 const std::shared_ptr<Piece>&
@@ -162,4 +171,5 @@ void Board::movePiece(std::shared_ptr<Piece>&   piece,
 	board_[oldCoords.first][oldCoords.second]     = nullptr;
 	piece->move(coordinates);
 	turn_ = !turn_;
+    checkForCheck(turn_)
 }

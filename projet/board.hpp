@@ -9,6 +9,7 @@ class Board
 {
 public:
 	Board();
+    Board(const Board& other);
 	~Board();
 
 	bool isTurn(bool player) const;

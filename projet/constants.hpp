@@ -8,17 +8,17 @@
 
 namespace board
 {
-    const int SIZE = 8;
+	const int SIZE = 8;
 }  //namespace board
 
 namespace square
 {
-	const QFont   FONT     = QFont("Arial", 50);
-	const QSize   SIZE     = QSize(100, 100);
-	const QString DARK_BG  = "QPushButton { background-color: gray }";
-	const QString LIGHT_BG = "QPushButton { background-color: white }";
-    const QString SELECTED_BG = "QPushButton { background-color: blue }";
-    const QString VALID_MOVE_BG = "QPushButton { background-color: green }";
+	const QFont   FONT          = QFont("Arial", 50);
+	const QSize   SIZE          = QSize(100, 100);
+	const QString DARK_BG       = "QPushButton { background-color: gray }";
+	const QString LIGHT_BG      = "QPushButton { background-color: white }";
+	const QString SELECTED_BG   = "QPushButton { background-color: blue }";
+	const QString VALID_MOVE_BG = "QPushButton { background-color: green }";
 }  //namespace square
 
 namespace piece
