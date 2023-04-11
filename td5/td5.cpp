@@ -24,7 +24,10 @@
 #include <fstream>
 #include <iomanip>
 #include <iostream>
+#include <map>
+#include <numeric>
 #include <limits>
+#include <set>
 #include <sstream>
 #include <string>
 
@@ -196,7 +199,6 @@ shared_ptr<Acteur> lireActeur(istream& fichier, const ListeFilms listeFilms)
 	else
 	{
 		shared_ptr<Acteur> ptrActeur = make_shared<Acteur>(acteur);
-		cout << acteur.nom << "\n";
 		return ptrActeur;
 	}
 }
@@ -259,12 +261,14 @@ Item& Item::operator=(const Item& item)
 	return *this;
 }
 
+bool Item::operator<(const Item& item) const
+{
+	return titre_ < item.titre_;
+}
+
 void Item::afficher() const
 {
-	string affichage = "";
-	affichage        += "Titre: " + titre_ + "\n";
-
-	cout << affichage;
+	cout << "Titre: " << titre_ << "\n";
 }
 
 Film::Film() : Item()
@@ -360,15 +364,9 @@ const int INDICE_HOBBIT_LIVRE = 9;
 
 int main()
 {
-	bibliotheque_cours::
-		activerCouleursAnsi();  //Permet sous Windows les "ANSI escape code"
-	                            //pour changer de couleurs
-	                            //https://en.wikipedia.org/wiki/ANSI_escape_code
-	                            //; les consoles Linux/Mac les supportent
-	                            //normalement par défaut.
+	bibliotheque_cours::activerCouleursAnsi();  //Permet sous Windows les "ANSI escape code" pour changer de couleurs https://en.wikipedia.org/wiki/ANSI_escape_code ; les consoles Linux/Mac les supportent normalement par défaut.
 
-	static const string ligneDeSeparation =
-		"\n\033[35m════════════════════════════════════════\033[0m\n";
+	static const string ligneDeSeparation = "\n\033[35m════════════════════════════════════════\033[0m\n";
 
 	ListeFilms listeFilms = ListeFilms("films.bin");
 
@@ -403,14 +401,13 @@ int main()
 	afficherListeFilms(bibliotheque);
 
 	forward_list<Item*> listeLiee;
-	forward_list<Item*> listeLiee2;
-	forward_list<Item*> listeLieeRenversee;
-	vector<Item*>       bibliotheque2;
 
 	for (Item* item : bibliotheque)
 	{
 		listeLiee.push_front(item);
 	}
+
+	forward_list<Item*> listeLieeRenversee;
 
 	for (Item* item : bibliotheque)
 	{
@@ -418,23 +415,52 @@ int main()
 		                                item);
 	}
 
+	forward_list<Item*> listeLiee2;
+
 	for (Item* item : listeLiee)
 	{
 		listeLiee2.push_front(item);
 	}
+
+	vector<Item*>       bibliotheque2;
 
 	for (Item* item : listeLiee)  //O(n)
 	{
 		bibliotheque2.insert(bibliotheque2.begin(), item);  //O(n)
 	}                                                       //Total = O(n^2)
 
-	Film*        alien        = dynamic_cast<Film*>(bibliotheque[0]);
-	ListeActeurs listeActeurs = move(alien->acteurs_);
+	cout << ligneDeSeparation;
 
-	for (auto&& acteur : listeActeurs)
+	for (shared_ptr<Acteur> acteur : dynamic_cast<Film*>(bibliotheque[0])->acteurs_)
 	{
-		cout << acteur << "\n";
+		cout << *acteur << "\n";
 	}
+
+	set<Item> bibliothequeTriee;
+
+	for (Item* item : bibliotheque)
+	{
+		bibliothequeTriee.insert(*item);
+	}
+
+	unordered_map<string, Item*> bibliothequeUMap;
+
+	for (Item* item : bibliotheque)
+	{
+		bibliothequeUMap[item->titre_] = item;
+	}
+
+	cout << ligneDeSeparation;
+
+	bibliothequeUMap["The Hobbit"]->Item::afficher();
+
+	vector<Item*> bibliothequeFilms;
+
+	copy_if(bibliotheque.begin(), bibliotheque.end(), back_inserter(bibliothequeFilms), [](Item* item) { return dynamic_cast<Film*>(item) != nullptr; });
+
+	cout << ligneDeSeparation;
+
+	cout << transform_reduce(bibliothequeFilms.begin(), bibliothequeFilms.end(), 0, plus<int>(), [](Item* item) { return dynamic_cast<Film*>(item)->recette_; });
 
 	for (Item* item : bibliotheque)
 	{
