@@ -8,6 +8,11 @@ Pawn::Pawn(const std::pair<int, int>& coordinates, const bool& player) :
 
 Pawn::~Pawn() { }
 
+std::shared_ptr<Piece> Pawn::clone() const
+{
+	return std::make_shared<Pawn>(*this);
+}
+
 bool Pawn::isStartingPosition() const
 {
 	return getPlayer()

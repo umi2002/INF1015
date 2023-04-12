@@ -130,3 +130,29 @@ bool Board::isCheck(bool player) const
 
     return false;
 }
+
+const std::shared_ptr<Piece>&
+Board::getPiece(const std::pair<int, int> coordinates) const
+{
+	return board_[coordinates.first][coordinates.second];
+}
+
+void Board::movePiece(std::shared_ptr<Piece>& piece,
+	const std::pair<int, int> coordinates)
+{
+	const std::shared_ptr<Piece>& targetPiece =
+		board_[coordinates.first][coordinates.second];
+	auto activePiecesIterator =
+		std::find(activePieces_.begin(), activePieces_.end(), targetPiece);
+
+	if (activePiecesIterator != activePieces_.end())
+	{
+		activePieces_.erase(activePiecesIterator);
+	}
+
+	board_[coordinates.first][coordinates.second] = piece;
+	std::pair<int, int> oldCoords = piece->getCoordinates();
+	board_[oldCoords.first][oldCoords.second] = nullptr;
+	piece->move(coordinates);
+	turn_ = !turn_;
+}

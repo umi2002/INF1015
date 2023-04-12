@@ -9,7 +9,8 @@ class Piece
 {
 public:
 	Piece(const std::pair<int, int> coordinates, const bool player);
-	~Piece();
+	virtual ~Piece() = default;
+	virtual std::shared_ptr<Piece> clone() const = 0;
 	std::pair<int, int> getCoordinates() const;
 	bool                getPlayer() const;
 	void                move(const std::pair<int, int> coordinates);

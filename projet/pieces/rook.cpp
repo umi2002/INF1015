@@ -8,6 +8,11 @@ Rook::Rook(const std::pair<int, int>& coordinates, const bool& player) :
 
 Rook::~Rook() { }
 
+std::shared_ptr<Piece> Rook::clone() const
+{
+	return std::make_shared<Rook>(*this);
+}
+
 std::vector<std::pair<int, int>> Rook::getValidMoves(const Board& board) const
 {
 	std::vector<std::pair<int, int>>   validMoves;

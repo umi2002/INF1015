@@ -7,7 +7,7 @@ class King : public Piece
 public:
 	King(const std::pair<int, int>& coordinates, const bool& player);
 	~King();
-	bool isInCheck(const Board& board) const;
+	std::shared_ptr<Piece> clone() const override;
 
 	std::vector<std::pair<int, int>>
 				  getValidMoves(const Board& board) const override;

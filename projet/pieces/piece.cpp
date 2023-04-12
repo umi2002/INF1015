@@ -8,8 +8,6 @@ Piece::Piece(const std::pair<int, int> coordinates, const bool player) :
 	player_(player)
 { }
 
-Piece::~Piece() { }
-
 std::pair<int, int> Piece::getCoordinates() const
 {
 	return coordinates_;
@@ -43,16 +41,19 @@ bool Piece::threatensKing(const Board& board) const
 void Piece::removeSuicideMoves(
 	const Board& board, std::vector<std::pair<int, int>>& validMoves) const
 {
+	std::vector<std::pair<int, int>> validMovesCopy(validMoves);
+
 	for (const std::pair<int, int>& move : validMoves)
 	{
 		Board                  boardCopy(board);
-		std::shared_ptr<Piece> pieceCopy = boardCopy.getPiece(coordinates_);
+		std::shared_ptr<Piece> pieceCopy = clone();
 		boardCopy.movePiece(pieceCopy, move);
 		if (boardCopy.isCheck(player_))
 		{
 			auto validMoveIterator =
-				std::find(validMoves.begin(), validMoves.end(), move);
-			validMoves.erase(validMoveIterator);
+				std::find(validMovesCopy.begin(), validMovesCopy.end(), move);
+			validMovesCopy.erase(validMoveIterator);
 		}
 	}
+	validMoves = validMovesCopy;
 }

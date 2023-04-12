@@ -8,6 +8,11 @@ King::King(const std::pair<int, int>& coordinates, const bool& player) :
 
 King::~King() { }
 
+std::shared_ptr<Piece> King::clone() const
+{
+	return std::make_shared<King>(*this);
+}
+
 std::vector<std::pair<int, int>> King::getValidMoves(const Board& board) const
 {
 	std::vector<std::pair<int, int>> validMoves;

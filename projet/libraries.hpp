@@ -11,6 +11,7 @@
 #include <algorithm>
 #include <array>
 #include <memory>
-#include <range.hpp>
 #include <type_traits>
 #include <utility>
+
+#include "cppitertools/range.hpp"

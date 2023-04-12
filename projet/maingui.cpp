@@ -140,7 +140,7 @@ void MainGui::movePieceIfValid(std::pair<int, int> coordinates)
 	auto validMovesIterator = std::find(selectedPieceValidMoves.begin(),
 	                                    selectedPieceValidMoves.end(),
 	                                    coordinates);
-	bool isValidMove        = *validMovesIterator == coordinates;
+	bool isValidMove        = validMovesIterator != selectedPieceValidMoves.end();
 
 	if (isValidMove)
 	{
