@@ -51,6 +51,10 @@ void MainGui::connectSignals()
 	                 SIGNAL(squareSelected(std::pair<int, int>)),
 	                 this,
 	                 SLOT(highlightValidMoves(std::pair<int, int>)));
+	QObject::connect(this,
+	                 SIGNAL(invalidMove()),
+	                 this,
+	                 SLOT(indicateInvalidMove()));
 }
 
 bool MainGui::isDark(const std::pair<int, int> coordinates) const
@@ -133,22 +137,21 @@ void MainGui::movePieceIfValid(std::pair<int, int> coordinates)
 	const std::pair<int, int> selectedPieceCoords =
 		selectedPiece_->getCoordinates();
 
-	if (selectedPieceValidMoves.empty())
-	{
-		return;
-	}
 	auto validMovesIterator = std::find(selectedPieceValidMoves.begin(),
 	                                    selectedPieceValidMoves.end(),
 	                                    coordinates);
-	bool isValidMove        = validMovesIterator != selectedPieceValidMoves.end();
+	bool isValidMove = validMovesIterator != selectedPieceValidMoves.end();
 
-	if (isValidMove)
+	if (!isValidMove)
 	{
-		QPushButton& selectedSquare = getSquare(selectedPieceCoords);
-		board_.movePiece(selectedPiece_, coordinates);
-		removePiece(selectedSquare);
-		placePiece(selectedPiece_);
+		emit invalidMove();
+		return;
 	}
+
+	QPushButton& selectedSquare = getSquare(selectedPieceCoords);
+	board_.movePiece(selectedPiece_, coordinates);
+	removePiece(selectedSquare);
+	placePiece(selectedPiece_);
 }
 
 void MainGui::highlightSquare(std::pair<int, int> coordinates)
@@ -182,4 +185,11 @@ void MainGui::highlightValidMoves(std::pair<int, int> coordinates)
 		QPushButton& square = getSquare(move);
 		square.setStyleSheet(square::VALID_MOVE_BG);
 	}
+}
+
+void MainGui::indicateInvalidMove()
+{
+	std::pair<int, int> coordinates = selectedPiece_->getCoordinates();
+	QPushButton&        square      = getSquare(coordinates);
+	square.setStyleSheet(square::INVALID_MOVE_BG);
 }

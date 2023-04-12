@@ -35,7 +35,9 @@ private slots:
 	void movePieceIfValid(std::pair<int, int> coordinates);
 	void highlightSquare(std::pair<int, int> coordinates);
 	void highlightValidMoves(std::pair<int, int> coordinates);
+    void indicateInvalidMove();
 
 signals:
 	void squareSelected(std::pair<int, int> coordinates);
+    void invalidMove();
 };

@@ -39,8 +39,7 @@ Board::Board()
 	for (std::pair<int, int>& coord : blackPawnCoords)
 	{
 		piece = std::make_shared<Pawn>(coord, false);
-		board_[coord.first][coord.second] =
-			std::make_shared<Pawn>(coord, false);
+		board_[coord.first][coord.second] = piece;
 		activePieces_.push_back(piece);
 	}
 
@@ -117,6 +116,7 @@ bool Board::isCheck(bool player) const
 {
     for (const std::shared_ptr<Piece>& piece : activePieces_)
     {
+
         if (piece->getPlayer() == player)
         {
             continue;

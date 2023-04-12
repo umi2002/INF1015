@@ -2,24 +2,21 @@
 
 #include "libraries.hpp"
 
-#include <memory>
-#include <utility>
-#include <vector>
-
 namespace board
 {
 	const int SIZE = 8;
-}  //namespace board
+}
 
 namespace square
 {
-	const QFont   FONT          = QFont("Arial", 50);
-	const QSize   SIZE          = QSize(100, 100);
-	const QString DARK_BG       = "QPushButton { background-color: gray }";
-	const QString LIGHT_BG      = "QPushButton { background-color: white }";
-	const QString SELECTED_BG   = "QPushButton { background-color: blue }";
-	const QString VALID_MOVE_BG = "QPushButton { background-color: green }";
-}  //namespace square
+	const QFont   FONT            = QFont("Arial", 50);
+	const QSize   SIZE            = QSize(100, 100);
+	const QString DARK_BG         = "QPushButton { background-color: gray }";
+	const QString LIGHT_BG        = "QPushButton { background-color: white }";
+	const QString SELECTED_BG     = "QPushButton { background-color: blue }";
+	const QString VALID_MOVE_BG   = "QPushButton { background-color: green }";
+	const QString INVALID_MOVE_BG = "QPushButton { background-color: red }";
+}
 
 namespace piece
 {
@@ -36,19 +33,12 @@ namespace piece
 	const QString BLACK_ROOK   = "♜";
 	const QString BLACK_QUEEN  = "♛";
 	const QString BLACK_KING   = "♚";
-}  //namespace piece
+}
 
 namespace coordinates
 {
 	const std::vector<std::pair<int, int>> WHITE_PAWN_COORDS = {
 		{6, 0},
-        {6, 1},
-        {6, 2},
-        {6, 3},
-        {6, 4},
-        {6, 5},
-        {6, 6},
-        {6, 7}
     };
 	const std::vector<std::pair<int, int>> WHITE_KNIGHT_COORDS = {
 		{7, 1},
@@ -67,13 +57,6 @@ namespace coordinates
 
 	const std::vector<std::pair<int, int>> BLACK_PAWN_COORDS = {
 		{1, 0},
-        {1, 1},
-        {1, 2},
-        {1, 3},
-        {1, 4},
-        {1, 5},
-        {1, 6},
-        {1, 7}
     };
 	const std::vector<std::pair<int, int>> BLACK_KNIGHT_COORDS = {
 		{0, 1},
@@ -89,4 +72,4 @@ namespace coordinates
     };
 	const std::pair<int, int> BLACK_QUEEN_COORDS = {0, 3};
 	const std::pair<int, int> BLACK_KING_COORDS  = {0, 4};
-}  //namespace coordinates
+}
