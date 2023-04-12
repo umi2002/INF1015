@@ -16,21 +16,13 @@ bool Pawn::isStartingPosition() const
 	               == coordinates::BLACK_PAWN_COORDS[0].first;
 }
 
-const std::vector<std::pair<int, int>>
-Pawn::getValidMoves(const Board& board) const
+std::vector<std::pair<int, int>> Pawn::getValidMoves(const Board& board) const
 {
 	std::vector<std::pair<int, int>> validMoves;
 	std::pair<int, int>              coordinates = getCoordinates();
 
 	bool player    = getPlayer();
 	int  direction = player ? -1 : 1;
-	bool kingInCheck =
-		player ? board.isWhiteKingInCheck() : board.isBlackKingInCheck();
-
-	if (kingInCheck)
-	{
-		return validMoves;
-	}
 
 	if (isStartingPosition())
 	{

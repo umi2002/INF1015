@@ -1,7 +1,9 @@
 #pragma once
 
 #include "board.hpp"
+#include "constants.hpp"
 #include "libraries.hpp"
+#include "pieces/piece.hpp"
 
 class MainGui : public QMainWindow
 {
@@ -13,14 +15,14 @@ public:
 
 private:
 	void makeBoard();
-    void connectSignals();
+	void connectSignals();
 
 	bool         isDark(const std::pair<int, int> coordinates) const;
 	QPushButton* makeSquare(const std::pair<int, int> coordinates,
 	                        const QString&            bgColor);
 	QPushButton& getSquare(const std::pair<int, int> coordinates);
-	void placePiece(const std::shared_ptr<Piece>& piece);
-	void removePiece(QPushButton& square);
+	void         placePiece(const std::shared_ptr<Piece>& piece);
+	void         removePiece(QPushButton& square);
 
 	QWidget*     boardWidget_;
 	QGridLayout* boardLayout_;

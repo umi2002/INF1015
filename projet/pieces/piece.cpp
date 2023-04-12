@@ -3,8 +3,6 @@
 #include "../board.hpp"
 #include "king.hpp"
 
-#include <iostream>
-
 Piece::Piece(const std::pair<int, int> coordinates, const bool player) :
 	coordinates_(coordinates),
 	player_(player)
@@ -40,4 +38,21 @@ bool Piece::threatensKing(const Board& board) const
 		}
 	}
 	return false;
+}
+
+void Piece::removeSuicideMoves(
+	const Board& board, std::vector<std::pair<int, int>>& validMoves) const
+{
+	for (const std::pair<int, int>& move : validMoves)
+	{
+		Board                  boardCopy(board);
+		std::shared_ptr<Piece> pieceCopy = boardCopy.getPiece(coordinates_);
+		boardCopy.movePiece(pieceCopy, move);
+		if (boardCopy.isCheck(player_))
+		{
+			auto validMoveIterator =
+				std::find(validMoves.begin(), validMoves.end(), move);
+			validMoves.erase(validMoveIterator);
+		}
+	}
 }

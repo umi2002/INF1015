@@ -9,7 +9,7 @@ class Board
 {
 public:
 	Board();
-    Board(const Board& other);
+	Board(const Board& other);
 	~Board();
 
 	bool isTurn(bool player) const;
@@ -17,9 +17,7 @@ public:
 	bool isOccupied(const std::pair<int, int> coordinates) const;
 	bool isEnemy(const std::pair<int, int> coordinates, bool player) const;
 	bool isValidMove(const std::pair<int, int> coordinates, bool player) const;
-	void checkForCheck(bool player);
-    bool isWhiteKingInCheck() const;
-    bool isBlackKingInCheck() const;
+	bool isCheck(bool player) const;
 
 	const std::shared_ptr<Piece>&
 		 getPiece(const std::pair<int, int> coordinates) const;
@@ -30,7 +28,5 @@ private:
 	std::shared_ptr<Piece>              board_[board::SIZE][board::SIZE];
 	std::vector<std::shared_ptr<Piece>> activePieces_;
 
-	bool turn_             = true;
-	bool whiteKingInCheck_ = false;
-	bool blackKingInCheck_ = false;
+	bool turn_ = true;
 };

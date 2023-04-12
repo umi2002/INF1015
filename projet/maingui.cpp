@@ -1,8 +1,5 @@
 #include "maingui.hpp"
 
-#include "constants.hpp"
-#include "pieces/piece.hpp"
-
 MainGui::MainGui(QWidget* parent) : QMainWindow(parent)
 {
 	this->setFixedSize(square::SIZE * board::SIZE);
@@ -130,10 +127,11 @@ void MainGui::movePieceIfValid(std::pair<int, int> coordinates)
 		return;
 	}
 
+	std::vector<std::pair<int, int>> selectedPieceValidMoves =
+		selectedPiece_->getValidMoves(board_);
+	selectedPiece_->removeSuicideMoves(board_, selectedPieceValidMoves);
 	const std::pair<int, int> selectedPieceCoords =
 		selectedPiece_->getCoordinates();
-	const std::vector<std::pair<int, int>>& selectedPieceValidMoves =
-		selectedPiece_->getValidMoves(board_);
 
 	if (selectedPieceValidMoves.empty())
 	{
@@ -175,8 +173,9 @@ void MainGui::highlightValidMoves(std::pair<int, int> coordinates)
 		return;
 	}
 
-	const std::vector<std::pair<int, int>>& validMoves =
-		piece->getValidMoves(board_);
+	std::vector<std::pair<int, int>> validMoves = piece->getValidMoves(board_);
+
+	piece->removeSuicideMoves(board_, validMoves);
 
 	for (const std::pair<int, int>& move : validMoves)
 	{

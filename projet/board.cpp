@@ -1,11 +1,8 @@
 #include "board.hpp"
 
-#include "constants.hpp"
 #include "pieces/king.hpp"
 #include "pieces/pawn.hpp"
 #include "pieces/rook.hpp"
-
-#include <iostream>
 
 Board::Board()
 {
@@ -116,60 +113,20 @@ bool Board::isValidMove(const std::pair<int, int> coordinates,
 	return true;
 }
 
-void Board::checkForCheck(bool player)
+bool Board::isCheck(bool player) const
 {
-	bool& kingInCheck = player ? whiteKingInCheck_ : blackKingInCheck_;
-    kingInCheck = false;
-
-	for (const std::shared_ptr<Piece>& piece : activePieces_)
-	{
-		if (piece->getPlayer() == player)
-		{
+    for (const std::shared_ptr<Piece>& piece : activePieces_)
+    {
+        if (piece->getPlayer() == player)
+        {
             continue;
-		}
+        }
 
-		if (!piece->threatensKing(*this))
-		{
-            continue;
-		}
+        if (piece->threatensKing(*this))
+        {
+            return true;
+        }
+    }
 
-        kingInCheck = true
-	}
-}
-
-bool Board::isWhiteKingInCheck() const
-{
-	return whiteKingInCheck_;
-}
-
-bool Board::isBlackKingInCheck() const
-{
-	return blackKingInCheck_;
-}
-
-const std::shared_ptr<Piece>&
-Board::getPiece(const std::pair<int, int> coordinates) const
-{
-	return board_[coordinates.first][coordinates.second];
-}
-
-void Board::movePiece(std::shared_ptr<Piece>&   piece,
-                      const std::pair<int, int> coordinates)
-{
-	const std::shared_ptr<Piece>& targetPiece =
-		board_[coordinates.first][coordinates.second];
-	auto activePiecesIterator =
-		std::find(activePieces_.begin(), activePieces_.end(), targetPiece);
-
-	if (targetPiece != *activePieces_.end())
-	{
-		activePieces_.erase(activePiecesIterator);
-	}
-
-	board_[coordinates.first][coordinates.second] = piece;
-	std::pair<int, int> oldCoords                 = piece->getCoordinates();
-	board_[oldCoords.first][oldCoords.second]     = nullptr;
-	piece->move(coordinates);
-	turn_ = !turn_;
-    checkForCheck(turn_)
+    return false;
 }

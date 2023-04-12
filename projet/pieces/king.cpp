@@ -8,8 +8,7 @@ King::King(const std::pair<int, int>& coordinates, const bool& player) :
 
 King::~King() { }
 
-const std::vector<std::pair<int, int>>
-King::getValidMoves(const Board& board) const
+std::vector<std::pair<int, int>> King::getValidMoves(const Board& board) const
 {
 	std::vector<std::pair<int, int>> validMoves;
 	const std::pair<int, int>        coordinates = getCoordinates();

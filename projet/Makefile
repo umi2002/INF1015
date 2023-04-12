@@ -9,7 +9,7 @@ LDLIBS = -lQt5Core -lQt5Gui -lQt5Widgets
 
 # Source files
 SRCS = $(wildcard *.cpp) $(wildcard pieces/*.cpp)
-MOC_HEADERS = $(wildcard *.hpp)
+MOC_HEADERS = maingui.hpp
 MOC_SOURCES=$(MOC_HEADERS:.hpp=.moc.cpp)
 
 # Object files
