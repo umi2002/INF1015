@@ -39,6 +39,13 @@ namespace coordinates
 {
 	const std::vector<std::pair<int, int>> WHITE_PAWN_COORDS = {
 		{6, 0},
+		{6, 1},
+		{6, 2},
+		{6, 3},
+		{6, 4},
+		{6, 5},
+		{6, 6},
+		{6, 7}
     };
 	const std::vector<std::pair<int, int>> WHITE_KNIGHT_COORDS = {
 		{7, 1},
@@ -57,6 +64,13 @@ namespace coordinates
 
 	const std::vector<std::pair<int, int>> BLACK_PAWN_COORDS = {
 		{1, 0},
+		{1, 1},
+		{1, 2},
+		{1, 3},
+		{1, 4},
+		{1, 5},
+		{1, 6},
+		{1, 7}
     };
 	const std::vector<std::pair<int, int>> BLACK_KNIGHT_COORDS = {
 		{0, 1},
