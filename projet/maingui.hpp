@@ -1,8 +1,6 @@
 #pragma once
 
 #include "board.hpp"
-#include "constants.hpp"
-#include "libraries.hpp"
 #include "pieces/piece.hpp"
 
 class MainGui : public QMainWindow
@@ -35,9 +33,9 @@ private slots:
 	void movePieceIfValid(std::pair<int, int> coordinates);
 	void highlightSquare(std::pair<int, int> coordinates);
 	void highlightValidMoves(std::pair<int, int> coordinates);
-    void indicateInvalidMove();
+	void indicateInvalidMove();
 
 signals:
 	void squareSelected(std::pair<int, int> coordinates);
-    void invalidMove();
+	void invalidMove();
 };

@@ -6,9 +6,8 @@ class Pawn : public Piece
 {
 public:
 	Pawn(const std::pair<int, int>& coordinates, const bool& player);
-	~Pawn();
 	std::shared_ptr<Piece> clone() const override;
-	bool isStartingPosition() const;
+	bool                   isStartingPosition() const;
 
 	std::vector<std::pair<int, int>>
 				  getValidMoves(const Board& board) const override;

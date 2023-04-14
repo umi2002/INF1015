@@ -1,5 +1,7 @@
 #include "maingui.hpp"
 
+using iter::range, std::shared_ptr, std::pair, std::vector;
+
 MainGui::MainGui(QWidget* parent) : QMainWindow(parent)
 {
 	this->setFixedSize(square::SIZE * board::SIZE);
@@ -16,15 +18,15 @@ void MainGui::makeBoard()
 	boardLayout_ = new QGridLayout(boardWidget_);
 
 	QString bgColor = "";
-	for (int i : iter::range(board::SIZE))
+	for (int i : range(board::SIZE))
 	{
-		for (int j : iter::range(board::SIZE))
+		for (int j : range(board::SIZE))
 		{
 			bgColor = isDark({i, j}) ? square::DARK_BG : square::LIGHT_BG;
 			QPushButton* square = makeSquare({i, j}, bgColor);
 			boardLayout_->addWidget(square, i, j);
 
-			const std::shared_ptr<Piece>& piece = board_.getPiece({i, j});
+			const shared_ptr<Piece>& piece = board_.getPiece({i, j});
 			placePiece(piece);
 		}
 		boardLayout_->setRowStretch(i, 1);
@@ -51,19 +53,17 @@ void MainGui::connectSignals()
 	                 SIGNAL(squareSelected(std::pair<int, int>)),
 	                 this,
 	                 SLOT(highlightValidMoves(std::pair<int, int>)));
-	QObject::connect(this,
-	                 SIGNAL(invalidMove()),
-	                 this,
-	                 SLOT(indicateInvalidMove()));
+	QObject::connect(
+		this, SIGNAL(invalidMove()), this, SLOT(indicateInvalidMove()));
 }
 
-bool MainGui::isDark(const std::pair<int, int> coordinates) const
+bool MainGui::isDark(const pair<int, int> coordinates) const
 {
 	return (coordinates.first + coordinates.second) % 2 != 0;
 }
 
-QPushButton* MainGui::makeSquare(const std::pair<int, int> coordinates,
-                                 const QString&            bgColor)
+QPushButton* MainGui::makeSquare(const pair<int, int> coordinates,
+                                 const QString&       bgColor)
 {
 	QPushButton* square = new QPushButton();
 	square->setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Expanding);
@@ -82,14 +82,14 @@ QPushButton* MainGui::makeSquare(const std::pair<int, int> coordinates,
 	return square;
 }
 
-QPushButton& MainGui::getSquare(const std::pair<int, int> coordinates)
+QPushButton& MainGui::getSquare(const pair<int, int> coordinates)
 {
 	return *static_cast<QPushButton*>(
 		boardLayout_->itemAtPosition(coordinates.first, coordinates.second)
 			->widget());
 }
 
-void MainGui::placePiece(const std::shared_ptr<Piece>& piece)
+void MainGui::placePiece(const shared_ptr<Piece>& piece)
 {
 	if (!piece)
 	{
@@ -108,9 +108,9 @@ void MainGui::removePiece(QPushButton& square)
 void MainGui::unHighlightSquares()
 {
 	QString bgColor = "";
-	for (int i : iter::range(board::SIZE))
+	for (int i : range(board::SIZE))
 	{
-		for (int j : iter::range(board::SIZE))
+		for (int j : range(board::SIZE))
 		{
 			QPushButton& square = getSquare({i, j});
 			bgColor = isDark({i, j}) ? square::DARK_BG : square::LIGHT_BG;
@@ -119,7 +119,7 @@ void MainGui::unHighlightSquares()
 	}
 }
 
-void MainGui::movePieceIfValid(std::pair<int, int> coordinates)
+void MainGui::movePieceIfValid(pair<int, int> coordinates)
 {
 	if (!selectedPiece_)
 	{
@@ -131,11 +131,10 @@ void MainGui::movePieceIfValid(std::pair<int, int> coordinates)
 		return;
 	}
 
-	std::vector<std::pair<int, int>> selectedPieceValidMoves =
+	vector<pair<int, int>> selectedPieceValidMoves =
 		selectedPiece_->getValidMoves(board_);
 	selectedPiece_->removeSuicideMoves(board_, selectedPieceValidMoves);
-	const std::pair<int, int> selectedPieceCoords =
-		selectedPiece_->getCoordinates();
+	const pair<int, int> selectedPieceCoords = selectedPiece_->getCoordinates();
 
 	auto validMovesIterator = std::find(selectedPieceValidMoves.begin(),
 	                                    selectedPieceValidMoves.end(),
@@ -154,7 +153,7 @@ void MainGui::movePieceIfValid(std::pair<int, int> coordinates)
 	placePiece(selectedPiece_);
 }
 
-void MainGui::highlightSquare(std::pair<int, int> coordinates)
+void MainGui::highlightSquare(pair<int, int> coordinates)
 {
 	QPushButton& square = getSquare(coordinates);
 	if (square.text() != "")
@@ -163,9 +162,9 @@ void MainGui::highlightSquare(std::pair<int, int> coordinates)
 	}
 }
 
-void MainGui::highlightValidMoves(std::pair<int, int> coordinates)
+void MainGui::highlightValidMoves(pair<int, int> coordinates)
 {
-	const std::shared_ptr<Piece>& piece = board_.getPiece(coordinates);
+	const shared_ptr<Piece>& piece = board_.getPiece(coordinates);
 	if (!piece)
 	{
 		return;
@@ -176,11 +175,11 @@ void MainGui::highlightValidMoves(std::pair<int, int> coordinates)
 		return;
 	}
 
-	std::vector<std::pair<int, int>> validMoves = piece->getValidMoves(board_);
+	vector<pair<int, int>> validMoves = piece->getValidMoves(board_);
 
 	piece->removeSuicideMoves(board_, validMoves);
 
-	for (const std::pair<int, int>& move : validMoves)
+	for (const pair<int, int>& move : validMoves)
 	{
 		QPushButton& square = getSquare(move);
 		square.setStyleSheet(square::VALID_MOVE_BG);
@@ -189,7 +188,7 @@ void MainGui::highlightValidMoves(std::pair<int, int> coordinates)
 
 void MainGui::indicateInvalidMove()
 {
-	std::pair<int, int> coordinates = selectedPiece_->getCoordinates();
-	QPushButton&        square      = getSquare(coordinates);
+	pair<int, int> coordinates = selectedPiece_->getCoordinates();
+	QPushButton&   square      = getSquare(coordinates);
 	square.setStyleSheet(square::INVALID_MOVE_BG);
 }

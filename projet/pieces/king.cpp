@@ -2,21 +2,21 @@
 
 #include "../board.hpp"
 
-King::King(const std::pair<int, int>& coordinates, const bool& player) :
+using std::pair, std::vector, std::shared_ptr, std::make_shared;
+
+King::King(const pair<int, int>& coordinates, const bool& player) :
 	Piece(coordinates, player)
 { }
 
-King::~King() { }
-
-std::shared_ptr<Piece> King::clone() const
+shared_ptr<Piece> King::clone() const
 {
-	return std::make_shared<King>(*this);
+	return make_shared<King>(*this);
 }
 
-std::vector<std::pair<int, int>> King::getValidMoves(const Board& board) const
+vector<std::pair<int, int>> King::getValidMoves(const Board& board) const
 {
-	std::vector<std::pair<int, int>> validMoves;
-	const std::pair<int, int>        coordinates = getCoordinates();
+	vector<std::pair<int, int>> validMoves;
+	const pair<int, int>        coordinates = getCoordinates();
 
 	for (int i : iter::range(-1, 2))
 	{
@@ -27,8 +27,8 @@ std::vector<std::pair<int, int>> King::getValidMoves(const Board& board) const
 				continue;
 			}
 
-			std::pair<int, int> destination =
-				std::make_pair(coordinates.first + i, coordinates.second + j);
+			pair<int, int> destination = {coordinates.first + i,
+			                              coordinates.second + j};
 			if (board.isValidMove(destination, getPlayer()))
 			{
 				validMoves.push_back(destination);
