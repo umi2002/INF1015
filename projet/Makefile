@@ -21,6 +21,7 @@ TARGET = main
 # Build rule
 all: $(TARGET)
 	@echo "Build complete."
+	rm -f $(OBJS) ./pieces/*.o
 
 $(TARGET): $(OBJS)
 	$(CXX) $^ $(LDLIBS) -o $@
@@ -34,4 +35,4 @@ $(TARGET): $(OBJS)
 .PHONY: clean
 
 clean:
-	rm -f $(OBJS) $(TARGET)
+	rm -f $(OBJS) $(TARGET) ./pieces/*.o
