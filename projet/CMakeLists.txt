@@ -13,7 +13,6 @@ set(ALL_FILES
     "board.cpp"
     "main.cpp"
     "maingui.cpp"
-    "testboard.cpp"
     "bibliotheque_cours/bibliotheque_cours.cpp"
     "bibliotheque_cours/verification_allocation.cpp"
     "pieces/king.cpp"

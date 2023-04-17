@@ -32,7 +32,7 @@ void initialiserBibliothequeCours([[maybe_unused]] int   argc,
 //cdbg.setTee(&clog);  // Décommenter cette ligne pour que cdbg affiche sur la
 //console en plus de la "Sortie" du débogueur.
 
-bibliotheque_cours::executerGoogleTest(argc, argv); // Attention de ne rien
+//bibliotheque_cours::executerGoogleTest(argc, argv); // Attention de ne rien
 //afficher avant cette ligne, sinon l'Explorateur de tests va tenter de lire
 //votre affichage comme un résultat de test.
 #endif
