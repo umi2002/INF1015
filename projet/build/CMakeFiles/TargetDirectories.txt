@@ -1,5 +1,0 @@
-/home/umi/Desktop/inf1015/projet/build/CMakeFiles/Chess.dir
-/home/umi/Desktop/inf1015/projet/build/CMakeFiles/Chess_couverture.dir
-/home/umi/Desktop/inf1015/projet/build/CMakeFiles/edit_cache.dir
-/home/umi/Desktop/inf1015/projet/build/CMakeFiles/rebuild_cache.dir
-/home/umi/Desktop/inf1015/projet/build/CMakeFiles/Chess_autogen.dir
