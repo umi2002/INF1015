@@ -1,10 +1,2 @@
-*
-!*/
-!*/include/*/*
-!*.hpp
-!*.cpp
-!*.h
-!*.txt
-!*.bin
-!*.gitignore
-!**/Makefile
+./**/build/
+./**/.cache/

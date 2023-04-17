@@ -10,8 +10,7 @@
 #include <QtWidgets/QPushButton>
 #include <algorithm>
 #include <array>
+#include <cppitertools/range.hpp>
 #include <memory>
 #include <typeinfo>
 #include <utility>
-
-#include "cppitertools/range.hpp"
