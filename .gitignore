@@ -1,0 +1,6 @@
+**/build/
+**/.cache/
+**/Release/
+**/Debug/
+**/x64/
+**/.vs/
