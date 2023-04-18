@@ -1,13 +1,13 @@
 #pragma once
 
-#include <QtCore/QSize>
-#include <QtCore/QString>
-#include <QtGui/QFont>
-#include <QtWidgets/QApplication>
-#include <QtWidgets/QGridLayout>
-#include <QtWidgets/QLabel>
-#include <QtWidgets/QMainWindow>
-#include <QtWidgets/QPushButton>
+#include <QSize>
+#include <QString>
+#include <QFont>
+#include <QApplication>
+#include <QGridLayout>
+#include <QLabel>
+#include <QMainWindow>
+#include <QPushButton>
 #include <algorithm>
 #include <array>
 #include <cppitertools/range.hpp>

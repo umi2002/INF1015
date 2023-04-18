@@ -8,6 +8,13 @@ endif()
 # Le nom du projet.
 project(Chess)
 
+# Tous les package Vcpkg. Pour savoir quoi mettre, on fait "vcpkg install <le package>", puis on met ce qu'ils disent de mettre dans le CMakeLists.
+find_package(cppitertools CONFIG REQUIRED)  # On pourrait prendre le cppitertools de vcpkg au lieu de celui fourni dans include/
+find_package(Qt6 REQUIRED COMPONENTS Core Gui Widgets)
+find_package(GTest CONFIG REQUIRED)
+qt_standard_project_setup()
+enable_testing()
+
 # On met les fichiers sources (incluant les entêtes)
 set(ALL_FILES
     "board.cpp"
@@ -19,14 +26,11 @@ set(ALL_FILES
     "pieces/pawn.cpp"
     "pieces/piece.cpp"
     "pieces/rook.cpp"
+
+    "testboard.cpp"
 )
 
-find_package(Qt6 REQUIRED COMPONENTS Core Gui Widgets)
-qt_standard_project_setup()
-
 add_executable(${PROJECT_NAME} ${ALL_FILES})
-
-target_link_libraries(${PROJECT_NAME} PRIVATE Qt6::Core Qt6::Gui Qt6::Widgets)
 
 # Les flags de compilation. Ceux-ci reproduisent un peu le comportement de MSVC avec /W4.
 set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -std=c++2a -fsigned-char -Wall -Wextra -Wpedantic -Woverloaded-virtual -Wno-unknown-pragmas -Wno-enum-compare --coverage")
@@ -48,7 +52,7 @@ if (GCOV_PATH)
 		DEPENDS ${PROJECT_NAME}
 	)
 endif()
+target_link_libraries(${PROJECT_NAME} PRIVATE Qt6::Core Qt6::Gui Qt6::Widgets cppitertools::cppitertools GTest::gtest GTest::gtest_main)
 
-# Tous les package Vcpkg. Pour savoir quoi mettre, on fait "vcpkg install <le package>", puis on met ce qu'ils disent de mettre dans le CMakeLists.
-# find_package(cppitertools CONFIG REQUIRED)  # On pourrait prendre le cppitertools de vcpkg au lieu de celui fourni dans include/
-# find_package(Microsoft.GSL CONFIG  REQUIRED)  # Et GSL, noter que son nom de package est "ms-gsl" (le package "gsl" dans vcpkg est le "GNU Scientific Library" et non le "Guidelines Support Library").
+include(GoogleTest)
+gTest_discover_tests(${PROJECT_NAME})
