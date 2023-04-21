@@ -39,21 +39,21 @@ Board::Board()
     }
 
     vector< pair< int, int > > blackPawnCoords = BLACK_PAWN_COORDS;
-    for (const pair< int, int >& coord : blackPawnCoords)
+    for (const pair< int, int >& coordinates : blackPawnCoords)
     {
-        makePiece< Pawn >(coord, false);
+        makePiece< Pawn >(coordinates, false);
     }
 
     vector< pair< int, int > > whiteRookCoords = WHITE_ROOK_COORDS;
-    for (const pair< int, int >& coord : whiteRookCoords)
+    for (const pair< int, int >& coordinates : whiteRookCoords)
     {
-        makePiece< Rook >(coord, true);
+        makePiece< Rook >(coordinates, true);
     }
 
     vector< pair< int, int > > blackRookCoords = BLACK_ROOK_COORDS;
-    for (const pair< int, int >& coord : blackRookCoords)
+    for (const pair< int, int >& coordinates : blackRookCoords)
     {
-        makePiece< Rook >(coord, false);
+        makePiece< Rook >(coordinates, false);
     }
 }
 
