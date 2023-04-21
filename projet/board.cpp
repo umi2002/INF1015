@@ -33,9 +33,9 @@ Board::Board()
     makePiece< King >(blackKingCoords, false);
 
     vector< pair< int, int > > whitePawnCoords = WHITE_PAWN_COORDS;
-    for (const pair< int, int >& coord : whitePawnCoords)
+    for (const pair< int, int >& coordinates : whitePawnCoords)
     {
-        makePiece< Pawn >(coord, true);
+        makePiece< Pawn >(coordinates, true);
     }
 
     vector< pair< int, int > > blackPawnCoords = BLACK_PAWN_COORDS;
