@@ -1,5 +1,7 @@
 #pragma once
 
+#include "cppitertools/range.hpp"
+
 #include <QtCore/QSize>
 #include <QtCore/QString>
 #include <QtGui/QFont>
@@ -13,5 +15,3 @@
 #include <memory>
 #include <typeinfo>
 #include <utility>
-
-#include "cppitertools/range.hpp"

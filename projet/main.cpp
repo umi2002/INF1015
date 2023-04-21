@@ -1,3 +1,11 @@
+/**
+ * Programme qui permet de jouer au jeu d'échecs.
+ * \file board.cpp
+ * \author Hoang et Ibarissen
+ * \date 20 avril 2023
+ * Créé le 12 avril 2023
+ */
+
 #include "libraries.hpp"
 #include "maingui.hpp"
 
@@ -29,10 +37,10 @@ void initialiserBibliothequeCours([[maybe_unused]] int   argc,
                                 //; les consoles Linux/Mac les supportent
                                 //normalement par défaut.
 
-//cdbg.setTee(&clog);  // Décommenter cette ligne pour que cdbg affiche sur la
-//console en plus de la "Sortie" du débogueur.
+    //cdbg.setTee(&clog);  // Décommenter cette ligne pour que cdbg affiche sur
+    //la console en plus de la "Sortie" du débogueur.
 
-bibliotheque_cours::executerGoogleTest(argc, argv); // Attention de ne rien
+    bibliotheque_cours::executerGoogleTest(argc, argv);  //Attention de ne rien
 //afficher avant cette ligne, sinon l'Explorateur de tests va tenter de lire
 //votre affichage comme un résultat de test.
 #endif

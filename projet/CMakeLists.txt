@@ -27,7 +27,8 @@ set(ALL_FILES
     "pieces/piece.cpp"
     "pieces/rook.cpp"
 
-    "testboard.cpp"
+    "tests/testboard.cpp"
+    "tests/testpiece.cpp"
 )
 
 add_executable(${PROJECT_NAME} ${ALL_FILES})

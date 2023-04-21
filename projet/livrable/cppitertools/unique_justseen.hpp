@@ -7,19 +7,28 @@
 #include <iterator>
 #include <utility>
 
-namespace iter {
-  namespace impl {
-    struct UniqueJustseenFn : Pipeable<UniqueJustseenFn> {
-      template <typename Container>
-      auto operator()(Container&& container) const {
-        // decltype(auto) return type in lambda so reference types are preserved
-        return imap([](auto&& group) -> decltype(
-                        auto) { return *get_begin(group.second); },
-            groupby(std::forward<Container>(container)));
-      }
-    };
-  }
-  constexpr impl::UniqueJustseenFn unique_justseen{};
-}
+namespace iter
+{
+    namespace impl
+    {
+        struct UniqueJustseenFn : Pipeable< UniqueJustseenFn >
+        {
+            template< typename Container >
+            auto operator()(Container&& container) const
+            {
+                //decltype(auto) return type in lambda so reference types are
+                //preserved
+                return imap(
+                    [](auto&& group) -> decltype(auto)
+                    {
+                        return *get_begin(group.second);
+                    },
+                    groupby(std::forward< Container >(container)));
+            }
+        };
+    }  //namespace impl
+
+    constexpr impl::UniqueJustseenFn unique_justseen {};
+}  //namespace iter
 
 #endif

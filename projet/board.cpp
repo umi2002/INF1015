@@ -1,10 +1,18 @@
+/**
+ * Programme qui implémente le modèle d'un jeu d'échecs.
+ * \file board.cpp
+ * \author Hoang et Ibarissen
+ * \date 20 avril 2023
+ * Créé le 12 avril 2023
+ */
+
 #include "board.hpp"
 
 #include "pieces/king.hpp"
 #include "pieces/pawn.hpp"
 #include "pieces/rook.hpp"
 
-using std::shared_ptr, std::vector, std::array, std::pair, std::make_shared;
+using std::shared_ptr, std::vector, std::array, std::pair;
 
 Board::Board()
 {
@@ -18,48 +26,34 @@ Board::Board()
         }
     }
 
-    shared_ptr< Piece > piece;
-
     pair< int, int > whiteKingCoords = WHITE_KING_COORDS;
-    piece = make_shared< King >(whiteKingCoords, true);
-    board_[whiteKingCoords.first][whiteKingCoords.second] = piece;
-    activePieces_.push_back(piece);
+    makePiece< King >(whiteKingCoords, true);
 
     pair< int, int > blackKingCoords = BLACK_KING_COORDS;
-    piece = make_shared< King >(blackKingCoords, false);
-    board_[blackKingCoords.first][blackKingCoords.second] = piece;
-    activePieces_.push_back(piece);
+    makePiece< King >(blackKingCoords, false);
 
     vector< pair< int, int > > whitePawnCoords = WHITE_PAWN_COORDS;
-    for (pair< int, int >& coord : whitePawnCoords)
+    for (const pair< int, int >& coord : whitePawnCoords)
     {
-        piece                             = make_shared< Pawn >(coord, true);
-        board_[coord.first][coord.second] = piece;
-        activePieces_.push_back(piece);
+        makePiece< Pawn >(coord, true);
     }
 
     vector< pair< int, int > > blackPawnCoords = BLACK_PAWN_COORDS;
-    for (pair< int, int >& coord : blackPawnCoords)
+    for (const pair< int, int >& coord : blackPawnCoords)
     {
-        piece                             = make_shared< Pawn >(coord, false);
-        board_[coord.first][coord.second] = piece;
-        activePieces_.push_back(piece);
+        makePiece< Pawn >(coord, false);
     }
 
     vector< pair< int, int > > whiteRookCoords = WHITE_ROOK_COORDS;
-    for (pair< int, int >& coord : whiteRookCoords)
+    for (const pair< int, int >& coord : whiteRookCoords)
     {
-        piece                             = make_shared< Rook >(coord, true);
-        board_[coord.first][coord.second] = piece;
-        activePieces_.push_back(piece);
+        makePiece< Rook >(coord, true);
     }
 
     vector< pair< int, int > > blackRookCoords = BLACK_ROOK_COORDS;
-    for (pair< int, int >& coord : blackRookCoords)
+    for (const pair< int, int >& coord : blackRookCoords)
     {
-        piece                             = make_shared< Rook >(coord, false);
-        board_[coord.first][coord.second] = piece;
-        activePieces_.push_back(piece);
+        makePiece< Rook >(coord, false);
     }
 }
 
