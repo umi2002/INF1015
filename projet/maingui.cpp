@@ -18,7 +18,17 @@ MainGui::MainGui(QWidget* parent) : QMainWindow(parent)
     this->show();
 }
 
-MainGui::~MainGui() { }
+MainGui::~MainGui()
+{
+    for (int i : range(board::SIZE))
+    {
+        for (int j : range(board::SIZE))
+        {
+            delete boardLayout_->itemAtPosition(i, j)->widget();
+        }
+    }
+    delete boardWidget_;
+}
 
 void MainGui::makeBoard()
 {
