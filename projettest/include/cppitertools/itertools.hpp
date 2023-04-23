@@ -30,7 +30,7 @@
 #include "unique_justseen.hpp"
 #include "zip.hpp"
 
-// zip_longest is the only itertool with a boost depedency, so it must be
-// included explicitly
+//zip_longest is the only itertool with a boost depedency, so it must be
+//included explicitly
 
 #endif

@@ -16,9 +16,8 @@ shared_ptr< Piece > Pawn::clone() const
 bool Pawn::isStartingPosition() const
 {
     return getPlayer()
-             ? getCoordinates().first == coordinates::WHITE_PAWN_COORDS[0].first
-             : getCoordinates().first
-                   == coordinates::BLACK_PAWN_COORDS[0].first;
+             ? getCoordinates().first == coordinates::WHITE_PAWN[0].first
+             : getCoordinates().first == coordinates::BLACK_PAWN[0].first;
 }
 
 vector< pair< int, int > > Pawn::getValidMoves(const Board& board) const

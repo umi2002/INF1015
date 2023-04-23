@@ -26,31 +26,31 @@ Board::Board()
         }
     }
 
-    pair< int, int > whiteKingCoords = WHITE_KING_COORDS;
+    pair< int, int > whiteKingCoords = WHITE_KING;
     makePiece< King >(whiteKingCoords, true);
 
-    pair< int, int > blackKingCoords = BLACK_KING_COORDS;
+    pair< int, int > blackKingCoords = BLACK_KING;
     makePiece< King >(blackKingCoords, false);
 
-    vector< pair< int, int > > whitePawnCoords = WHITE_PAWN_COORDS;
+    vector< pair< int, int > > whitePawnCoords = WHITE_PAWN;
     for (const pair< int, int >& coordinates : whitePawnCoords)
     {
         makePiece< Pawn >(coordinates, true);
     }
 
-    vector< pair< int, int > > blackPawnCoords = BLACK_PAWN_COORDS;
+    vector< pair< int, int > > blackPawnCoords = BLACK_PAWN;
     for (const pair< int, int >& coordinates : blackPawnCoords)
     {
         makePiece< Pawn >(coordinates, false);
     }
 
-    vector< pair< int, int > > whiteRookCoords = WHITE_ROOK_COORDS;
+    vector< pair< int, int > > whiteRookCoords = WHITE_ROOK;
     for (const pair< int, int >& coordinates : whiteRookCoords)
     {
         makePiece< Rook >(coordinates, true);
     }
 
-    vector< pair< int, int > > blackRookCoords = BLACK_ROOK_COORDS;
+    vector< pair< int, int > > blackRookCoords = BLACK_ROOK;
     for (const pair< int, int >& coordinates : blackRookCoords)
     {
         makePiece< Rook >(coordinates, false);
@@ -118,17 +118,28 @@ Board::getPiece(const pair< int, int > coordinates) const
     return board_[coordinates.first][coordinates.second];
 }
 
+void Board::removePiece(const std::shared_ptr< Piece >& piece)
+{
+    auto activePiecesIterator =
+        find(activePieces_.begin(), activePieces_.end(), piece);
+
+    if (activePiecesIterator != activePieces_.end())
+    {
+        activePieces_.erase(activePiecesIterator);
+    }
+
+    pair< int, int > coordinates                  = piece->getCoordinates();
+    board_[coordinates.first][coordinates.second] = nullptr;
+}
+
 void Board::movePiece(shared_ptr< Piece >&   piece,
                       const pair< int, int > coordinates)
 {
     const shared_ptr< Piece >& targetPiece =
         board_[coordinates.first][coordinates.second];
-    auto activePiecesIterator =
-        find(activePieces_.begin(), activePieces_.end(), targetPiece);
-
-    if (activePiecesIterator != activePieces_.end())
+    if (targetPiece != nullptr)
     {
-        activePieces_.erase(activePiecesIterator);
+        removePiece(targetPiece);
     }
 
     board_[coordinates.first][coordinates.second] = piece;
@@ -136,4 +147,9 @@ void Board::movePiece(shared_ptr< Piece >&   piece,
     board_[oldCoords.first][oldCoords.second]     = nullptr;
     piece->move(coordinates);
     turn_ = !turn_;
+}
+
+const vector< shared_ptr< Piece > >& Board::getActivePieces() const
+{
+    return activePieces_;
 }

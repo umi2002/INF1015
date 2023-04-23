@@ -21,8 +21,10 @@ public:
 
     const std::shared_ptr< Piece >&
          getPiece(const std::pair< int, int > coordinates) const;
+    void removePiece(const std::shared_ptr< Piece >& piece);
     void movePiece(std::shared_ptr< Piece >&   piece,
                    const std::pair< int, int > coordinates);
+    const std::vector< std::shared_ptr< Piece > >& getActivePieces() const;
 
     template< typename T >
     void makePiece(const std::pair< int, int > coordinates, const bool player);
