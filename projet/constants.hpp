@@ -37,25 +37,19 @@ namespace piece
 
 namespace coordinates
 {
-    const std::vector< std::pair< int, int > > WHITE_PAWN_COORDS = {
+    const std::vector< std::pair< int, int > > WHITE_PAWN = {
         {6, 0}, {6, 1}, {6, 2}, {6, 3}, {6, 4}, {6, 5}, {6, 6}, {6, 7}};
-    const std::vector< std::pair< int, int > > WHITE_KNIGHT_COORDS = {{7, 1},
-                                                                      {7, 6}};
-    const std::vector< std::pair< int, int > > WHITE_BISHOP_COORDS = {{7, 2},
-                                                                      {7, 5}};
-    const std::vector< std::pair< int, int > > WHITE_ROOK_COORDS   = {{7, 0},
-                                                                      {7, 7}};
-    const std::pair< int, int >                WHITE_QUEEN_COORDS  = {7, 3};
-    const std::pair< int, int >                WHITE_KING_COORDS   = {7, 4};
+    const std::vector< std::pair< int, int > > WHITE_KNIGHT = {{7, 1}, {7, 6}};
+    const std::vector< std::pair< int, int > > WHITE_BISHOP = {{7, 2}, {7, 5}};
+    const std::vector< std::pair< int, int > > WHITE_ROOK   = {{7, 0}, {7, 7}};
+    const std::pair< int, int >                WHITE_QUEEN  = {7, 3};
+    const std::pair< int, int >                WHITE_KING   = {7, 4};
 
-    const std::vector< std::pair< int, int > > BLACK_PAWN_COORDS = {
+    const std::vector< std::pair< int, int > > BLACK_PAWN = {
         {1, 0}, {1, 1}, {1, 2}, {1, 3}, {1, 4}, {1, 5}, {1, 6}, {1, 7}};
-    const std::vector< std::pair< int, int > > BLACK_KNIGHT_COORDS = {{0, 1},
-                                                                      {0, 6}};
-    const std::vector< std::pair< int, int > > BLACK_BISHOP_COORDS = {{0, 2},
-                                                                      {0, 5}};
-    const std::vector< std::pair< int, int > > BLACK_ROOK_COORDS   = {{0, 0},
-                                                                      {0, 7}};
-    const std::pair< int, int >                BLACK_QUEEN_COORDS  = {0, 3};
-    const std::pair< int, int >                BLACK_KING_COORDS   = {0, 4};
+    const std::vector< std::pair< int, int > > BLACK_KNIGHT = {{0, 1}, {0, 6}};
+    const std::vector< std::pair< int, int > > BLACK_BISHOP = {{0, 2}, {0, 5}};
+    const std::vector< std::pair< int, int > > BLACK_ROOK   = {{0, 0}, {0, 7}};
+    const std::pair< int, int >                BLACK_QUEEN  = {0, 3};
+    const std::pair< int, int >                BLACK_KING   = {0, 4};
 }  //namespace coordinates

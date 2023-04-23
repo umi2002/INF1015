@@ -8,6 +8,7 @@ public:
     Pawn(const std::pair< int, int >& coordinates, const bool& player);
     std::shared_ptr< Piece > clone() const override;
     bool                     isStartingPosition() const;
+    bool                     canBePromoted() const;
 
     std::vector< std::pair< int, int > >
                   getValidMoves(const Board& board) const override;

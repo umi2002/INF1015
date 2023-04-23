@@ -24,9 +24,14 @@ shared_ptr< Piece > Pawn::clone() const
 bool Pawn::isStartingPosition() const
 {
     return getPlayer()
-             ? getCoordinates().first == coordinates::WHITE_PAWN_COORDS[0].first
-             : getCoordinates().first
-                   == coordinates::BLACK_PAWN_COORDS[0].first;
+             ? getCoordinates().first == coordinates::WHITE_PAWN[0].first
+             : getCoordinates().first == coordinates::BLACK_PAWN[0].first;
+}
+
+bool Pawn::canBePromoted() const
+{
+    return getPlayer() ? getCoordinates().first == 0
+                       : getCoordinates().first == board::SIZE - 1;
 }
 
 vector< pair< int, int > > Pawn::getValidMoves(const Board& board) const
@@ -41,41 +46,40 @@ vector< pair< int, int > > Pawn::getValidMoves(const Board& board) const
     {
         pair< int, int > destination  = {coordinates.first + 2 * direction,
                                          coordinates.second};
-        pair< int, int > intermediate = {coordinates.first + direction,
-                                         coordinates.second};
-        if (!board.isOccupied(destination) && !board.isOccupied(intermediate))
+        pair< int, int > intermediate = {
+            coordinates.first + direction,
+            if (!board.isOccupied(destination)
+                && !board.isOccupied(intermediate)) {
+                validMoves.push_back(destination);
+    }
+}
+
+for (int i : iter::range(-1, 2))
+{
+    pair< int, int > destination = {coordinates.first + direction,
+                                    coordinates.second + i};
+    if (board.isOutOfBounds(destination))
+    {
+        continue;
+    }
+
+    if (destination.second == coordinates.second)
+    {
+        if (!board.isOccupied(destination))
         {
             validMoves.push_back(destination);
         }
     }
-
-    for (int i : iter::range(-1, 2))
+    else
     {
-        pair< int, int > destination = {coordinates.first + direction,
-                                        coordinates.second + i};
-        if (board.isOutOfBounds(destination))
+        if (board.isOccupied(destination) && board.isEnemy(destination, player))
         {
-            continue;
-        }
-
-        if (destination.second == coordinates.second)
-        {
-            if (!board.isOccupied(destination))
-            {
-                validMoves.push_back(destination);
-            }
-        }
-        else
-        {
-            if (board.isOccupied(destination)
-                && board.isEnemy(destination, player))
-            {
-                validMoves.push_back(destination);
-            }
+            validMoves.push_back(destination);
         }
     }
+}
 
-    return validMoves;
+return validMoves;
 }
 
 const QString Pawn::getName() const
