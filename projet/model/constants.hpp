@@ -53,3 +53,10 @@ namespace coordinates
     const std::pair< int, int >                BLACK_QUEEN  = {0, 3};
     const std::pair< int, int >                BLACK_KING   = {0, 4};
 }  //namespace coordinates
+
+namespace nDirections
+{
+    const int STRAIGHT = 4;
+    const int DIAGONAL = 4;
+    const int TOTAL    = STRAIGHT + DIAGONAL;
+}  //namespace nDirections

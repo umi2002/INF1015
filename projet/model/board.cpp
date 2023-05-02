@@ -8,8 +8,10 @@
 
 #include "board.hpp"
 
+#include "pieces/bishop.hpp"
 #include "pieces/king.hpp"
 #include "pieces/pawn.hpp"
+#include "pieces/queen.hpp"
 #include "pieces/rook.hpp"
 
 using std::shared_ptr, std::vector, std::array, std::pair;
@@ -31,6 +33,12 @@ Board::Board()
 
     pair< int, int > blackKingCoords = BLACK_KING;
     makePiece< King >(blackKingCoords, false);
+
+    pair< int, int > whiteQueenCoords = WHITE_QUEEN;
+    makePiece< Queen >(whiteQueenCoords, true);
+
+    pair< int, int > blackQueenCoords = BLACK_QUEEN;
+    makePiece< Queen >(blackQueenCoords, false);
 
     vector< pair< int, int > > whitePawnCoords = WHITE_PAWN;
     for (const pair< int, int >& coordinates : whitePawnCoords)
@@ -54,6 +62,18 @@ Board::Board()
     for (const pair< int, int >& coordinates : blackRookCoords)
     {
         makePiece< Rook >(coordinates, false);
+    }
+
+    vector< pair< int, int > > whiteBishopCoords = WHITE_BISHOP;
+    for (const pair< int, int >& coordinates : whiteBishopCoords)
+    {
+        makePiece< Bishop >(coordinates, true);
+    }
+
+    vector< pair< int, int > > blackBishopCoords = BLACK_BISHOP;
+    for (const pair< int, int >& coordinates : blackBishopCoords)
+    {
+        makePiece< Bishop >(coordinates, false);
     }
 }
 

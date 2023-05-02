@@ -7,8 +7,10 @@
  */
 
 #include "../model/board.hpp"
+#include "../model/pieces/bishop.hpp"
 #include "../model/pieces/king.hpp"
 #include "../model/pieces/pawn.hpp"
+#include "../model/pieces/queen.hpp"
 #include "../model/pieces/rook.hpp"
 
 #if __has_include("gtest/gtest.h")
@@ -20,7 +22,7 @@ TEST(Board, constructor)
 {
     using std::shared_ptr, std::pair, std::dynamic_pointer_cast, iter::range;
     Board board;
-    EXPECT_EQ(board.getActivePieces().size(), 22);
+    EXPECT_EQ(board.getActivePieces().size(), 28);
 
     pair< int, int >         whiteKingCoords = coordinates::WHITE_KING;
     const shared_ptr< King > whiteKing =
@@ -31,6 +33,16 @@ TEST(Board, constructor)
     const shared_ptr< King > blackKing =
         dynamic_pointer_cast< King >(board.getPiece(blackKingCoords));
     EXPECT_NE(blackKing, nullptr);
+
+    pair< int, int >          whiteQueenCoords = coordinates::WHITE_QUEEN;
+    const shared_ptr< Queen > whiteQueen =
+        dynamic_pointer_cast< Queen >(board.getPiece(whiteQueenCoords));
+    EXPECT_NE(whiteQueen, nullptr);
+
+    pair< int, int >          blackQueenCoords = coordinates::BLACK_QUEEN;
+    const shared_ptr< Queen > blackQueen =
+        dynamic_pointer_cast< Queen >(board.getPiece(blackQueenCoords));
+    EXPECT_NE(blackQueen, nullptr);
 
     for (const pair< int, int >& coord : coordinates::WHITE_PAWN)
     {
@@ -58,6 +70,20 @@ TEST(Board, constructor)
         const shared_ptr< Rook > rook =
             dynamic_pointer_cast< Rook >(board.getPiece(coord));
         EXPECT_NE(rook, nullptr);
+    }
+
+    for (const pair< int, int >& coord : coordinates::WHITE_BISHOP)
+    {
+        const shared_ptr< Bishop > bishop =
+            dynamic_pointer_cast< Bishop >(board.getPiece(coord));
+        EXPECT_NE(bishop, nullptr);
+    }
+
+    for (const pair< int, int >& coord : coordinates::BLACK_BISHOP)
+    {
+        const shared_ptr< Bishop > bishop =
+            dynamic_pointer_cast< Bishop >(board.getPiece(coord));
+        EXPECT_NE(bishop, nullptr);
     }
 }
 
@@ -178,12 +204,12 @@ TEST(Board, movePiece)
     shared_ptr< Piece > piece = board.getPiece(coordinates::WHITE_KING);
     board.movePiece(piece, coordinates::BLACK_ROOK[0]);
     board.movePiece(piece, coordinates::BLACK_ROOK[1]);
-    EXPECT_EQ(board.getActivePieces().size(), 20);
+    EXPECT_EQ(board.getActivePieces().size(), 26);
 
     piece = board.getPiece(coordinates::BLACK_KING);
     board.movePiece(piece, coordinates::WHITE_ROOK[0]);
     board.movePiece(piece, coordinates::WHITE_ROOK[1]);
-    EXPECT_EQ(board.getActivePieces().size(), 18);
+    EXPECT_EQ(board.getActivePieces().size(), 24);
 }
 
 #endif

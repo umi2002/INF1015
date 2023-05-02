@@ -23,6 +23,7 @@ set(ALL_FILES
     "model/pieces/pawn.cpp"
     "model/pieces/piece.cpp"
     "model/pieces/rook.cpp"
+    "model/pieces/queen.cpp"
     "view/maingui.cpp"
     "view/squaregui.cpp"
     "bibliotheque_cours/bibliotheque_cours.cpp"

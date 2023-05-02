@@ -85,5 +85,7 @@ vector< pair< int, int > > Pawn::getValidMoves(const Board& board) const
 
 const QString Pawn::getName() const
 {
-    return getPlayer() ? piece::WHITE_PAWN : piece::BLACK_PAWN;
+    using namespace piece;
+
+    return getPlayer() ? WHITE_PAWN : BLACK_PAWN;
 }

@@ -23,16 +23,19 @@ shared_ptr< Piece > Rook::clone() const
 
 vector< pair< int, int > > Rook::getValidMoves(const Board& board) const
 {
-    vector< pair< int, int > >   validMoves;
-    pair< int, int >             coordinates = getCoordinates();
-    array< pair< int, int >, 4 > directions  = {
+    using nDirections::STRAIGHT, board::SIZE, iter::range;
+
+    vector< pair< int, int > > validMoves;
+    pair< int, int >           coordinates = getCoordinates();
+
+    array< pair< int, int >, STRAIGHT > directions = {
         {{0, 1}, {0, -1}, {1, 0}, {-1, 0}}};
 
     for (pair< int, int > direction : directions)
     {
-        for (int i : iter::range(1, board::SIZE))
+        for (int i : range(1, SIZE))
         {
-            pair< int, int > destination = {
+            const pair< int, int > destination = {
                 coordinates.first + i * direction.first,
                 coordinates.second + i * direction.second};
             if (!board.isValidMove(destination, getPlayer()))
@@ -54,5 +57,7 @@ vector< pair< int, int > > Rook::getValidMoves(const Board& board) const
 
 const QString Rook::getName() const
 {
-    return getPlayer() ? piece::WHITE_ROOK : piece::BLACK_ROOK;
+    using namespace piece;
+
+    return getPlayer() ? WHITE_ROOK : BLACK_ROOK;
 }

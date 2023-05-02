@@ -61,7 +61,9 @@ vector< std::pair< int, int > > King::getValidMoves(const Board& board) const
 
 const QString King::getName() const
 {
-    return getPlayer() ? piece::WHITE_KING : piece::BLACK_KING;
+    using namespace piece;
+
+    return getPlayer() ? WHITE_KING : BLACK_KING;
 }
 
 int King::getCount()
