@@ -1,6 +1,6 @@
 #pragma once
 
-#include "libraries.hpp"
+#include "../libraries.hpp"
 
 namespace board
 {

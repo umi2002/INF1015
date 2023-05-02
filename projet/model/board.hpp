@@ -1,7 +1,7 @@
 #pragma once
 
 #include "constants.hpp"
-#include "libraries.hpp"
+#include "../libraries.hpp"
 
 class Piece;
 

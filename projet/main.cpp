@@ -7,7 +7,7 @@
  */
 
 #include "libraries.hpp"
-#include "maingui.hpp"
+#include "view/maingui.hpp"
 
 //#if __has_include("gtest/gtest.h")
 //#include "gtest/gtest.h"

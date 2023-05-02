@@ -1,7 +1,7 @@
 #pragma once
 
-#include "board.hpp"
-#include "pieces/piece.hpp"
+#include "../model/board.hpp"
+#include "../model/pieces/piece.hpp"
 
 class MainGui : public QMainWindow
 {

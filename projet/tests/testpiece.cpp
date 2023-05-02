@@ -6,10 +6,10 @@
  * Créé le 12 avril 2023
  */
 
-#include "../board.hpp"
-#include "../pieces/king.hpp"
-#include "../pieces/pawn.hpp"
-#include "../pieces/rook.hpp"
+#include "../model/board.hpp"
+#include "../model/pieces/king.hpp"
+#include "../model/pieces/pawn.hpp"
+#include "../model/pieces/rook.hpp"
 
 #if __has_include("gtest/gtest.h")
 #    include "gtest/gtest.h"
