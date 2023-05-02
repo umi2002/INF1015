@@ -31,51 +31,45 @@
     <ClCompile Include="googletest\src\gtest-all.cc">
       <Filter>Sources Bibliotheques</Filter>
     </ClCompile>
-    <ClCompile Include="maingui.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="testboard.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="board.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="main.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="pieces\piece.cpp">
+    <ClCompile Include="model\board.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="pieces\rook.cpp">
+    <ClCompile Include="model\pieces\queen.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="pieces\king.cpp">
+    <ClCompile Include="model\pieces\rook.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="pieces\pawn.cpp">
+    <ClCompile Include="model\pieces\bishop.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="model\pieces\king.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="model\pieces\pawn.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="model\pieces\piece.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="tests\testpiece.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="tests\testboard.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="view\squaregui.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="view\maingui.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="libraries.hpp">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="board.hpp">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="constants.hpp">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="pieces\piece.hpp">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="pieces\rook.hpp">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="pieces\king.hpp">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="pieces\pawn.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="include\debogage_memoire.hpp">
@@ -90,9 +84,36 @@
     <ClInclude Include="include\CodeCoverage_bugfix.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="model\board.hpp">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="constants.hpp">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="model\pieces\queen.hpp">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="model\pieces\rook.hpp">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="model\pieces\bishop.hpp">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="model\pieces\king.hpp">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="model\pieces\pawn.hpp">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="model\pieces\piece.hpp">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
-    <QtMoc Include="maingui.hpp">
+    <QtMoc Include="view\maingui.hpp">
+      <Filter>Header Files</Filter>
+    </QtMoc>
+    <QtMoc Include="view\squaregui.hpp">
       <Filter>Header Files</Filter>
     </QtMoc>
   </ItemGroup>

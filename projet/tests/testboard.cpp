@@ -190,7 +190,7 @@ TEST(Board, isCheck)
     EXPECT_EQ(board.getActivePieces().size(), 7);
 
     board.makePiece< Pawn >(
-        {blackKingCoords.first + 1, blackKingCoords.second - 1}, true);
+        {blackKingCoords.first + 1, blackKingCoords.second + 1}, true);
     EXPECT_TRUE(board.isCheck(false));
     EXPECT_EQ(board.getActivePieces().size(), 8);
 }

@@ -10,7 +10,7 @@ Bishop::Bishop(const pair< int, int >& coordinates, const bool& player) :
 
 shared_ptr< Piece > Bishop::clone() const
 {
-    return make_shared< Bishop >(this);
+    return make_shared< Bishop >(*this);
 }
 
 vector< pair< int, int > > Bishop::getValidMoves(const Board& board) const

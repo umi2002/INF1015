@@ -113,29 +113,36 @@
   <ItemGroup>
     <ClCompile Include="bibliotheque_cours\bibliotheque_cours.cpp" />
     <ClCompile Include="bibliotheque_cours\verification_allocation.cpp" />
-    <ClCompile Include="board.cpp" />
     <ClCompile Include="googletest\src\gtest-all.cc" />
     <ClCompile Include="main.cpp" />
-    <ClCompile Include="maingui.cpp" />
-    <ClCompile Include="pieces\king.cpp" />
-    <ClCompile Include="pieces\pawn.cpp" />
-    <ClCompile Include="pieces\piece.cpp" />
-    <ClCompile Include="pieces\rook.cpp" />
-    <ClCompile Include="testboard.cpp" />
+    <ClCompile Include="model\board.cpp" />
+    <ClCompile Include="model\pieces\bishop.cpp" />
+    <ClCompile Include="model\pieces\king.cpp" />
+    <ClCompile Include="model\pieces\pawn.cpp" />
+    <ClCompile Include="model\pieces\piece.cpp" />
+    <ClCompile Include="model\pieces\queen.cpp" />
+    <ClCompile Include="model\pieces\rook.cpp" />
+    <ClCompile Include="tests\testboard.cpp" />
+    <ClCompile Include="tests\testpiece.cpp" />
+    <ClCompile Include="view\maingui.cpp" />
+    <ClCompile Include="view\squaregui.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="board.hpp" />
     <ClInclude Include="constants.hpp" />
     <ClInclude Include="include\bibliotheque_cours.hpp" />
     <ClInclude Include="include\CodeCoverage_bugfix.h" />
     <ClInclude Include="include\debogage_memoire.hpp" />
     <ClInclude Include="include\verification_allocation.hpp" />
     <ClInclude Include="libraries.hpp" />
-    <ClInclude Include="pieces\king.hpp" />
-    <ClInclude Include="pieces\pawn.hpp" />
-    <ClInclude Include="pieces\piece.hpp" />
-    <ClInclude Include="pieces\rook.hpp" />
-    <QtMoc Include="maingui.hpp" />
+    <ClInclude Include="model\board.hpp" />
+    <ClInclude Include="model\pieces\bishop.hpp" />
+    <ClInclude Include="model\pieces\king.hpp" />
+    <ClInclude Include="model\pieces\pawn.hpp" />
+    <ClInclude Include="model\pieces\piece.hpp" />
+    <ClInclude Include="model\pieces\queen.hpp" />
+    <ClInclude Include="model\pieces\rook.hpp" />
+    <QtMoc Include="view\squaregui.hpp" />
+    <QtMoc Include="view\maingui.hpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Condition="Exists('$(QtMsBuild)\qt.targets')">

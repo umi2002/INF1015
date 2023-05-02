@@ -1,7 +1,7 @@
 #pragma once
 
 #include "../libraries.hpp"
-#include "../model/constants.hpp"
+#include "../constants.hpp"
 
 class SquareGui : public QPushButton
 {
