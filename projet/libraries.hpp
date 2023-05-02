@@ -1,8 +1,10 @@
 #pragma once
 
 #include <QApplication>
+#include <QDialog>
 #include <QFont>
 #include <QGridLayout>
+#include <QHBoxLayout>
 #include <QLabel>
 #include <QMainWindow>
 #include <QPushButton>

@@ -17,15 +17,16 @@ enable_testing()
 
 # On met les fichiers sources (incluant les entêtes)
 set(ALL_FILES
-    "model/board.cpp"
     "main.cpp"
-    "view/maingui.cpp"
-    "bibliotheque_cours/bibliotheque_cours.cpp"
-    "bibliotheque_cours/verification_allocation.cpp"
+    "model/board.cpp"
     "model/pieces/king.cpp"
     "model/pieces/pawn.cpp"
     "model/pieces/piece.cpp"
     "model/pieces/rook.cpp"
+    "view/maingui.cpp"
+    "view/squaregui.cpp"
+    "bibliotheque_cours/bibliotheque_cours.cpp"
+    "bibliotheque_cours/verification_allocation.cpp"
 
     "tests/testboard.cpp"
     "tests/testpiece.cpp"

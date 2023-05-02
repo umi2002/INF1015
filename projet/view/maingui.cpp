@@ -41,7 +41,8 @@ void MainGui::makeBoard()
         for (int j : range(board::SIZE))
         {
             bgColor = isDark({i, j}) ? square::DARK_BG : square::LIGHT_BG;
-            QPushButton* square = makeSquare({i, j}, bgColor);
+            SquareGui* square = new SquareGui(bgColor, this);
+            connectSquare({i, j}, square);
             boardLayout_->addWidget(square, i, j);
 
             const shared_ptr< Piece >& piece = board_.getPiece({i, j});
@@ -80,14 +81,9 @@ bool MainGui::isDark(const pair< int, int > coordinates) const
     return (coordinates.first + coordinates.second) % 2 != 0;
 }
 
-QPushButton* MainGui::makeSquare(const pair< int, int > coordinates,
-                                 const QString&         bgColor)
+void MainGui::connectSquare(const pair< int, int > coordinates,
+                            SquareGui*             square)
 {
-    QPushButton* square = new QPushButton();
-    square->setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Expanding);
-    square->setFont(square::FONT);
-    square->setFixedSize(square::SIZE);
-    square->setStyleSheet(bgColor);
     QObject::connect(
         square, SIGNAL(clicked()), this, SLOT(unHighlightSquares()));
     QObject::connect(square,
@@ -97,7 +93,6 @@ QPushButton* MainGui::makeSquare(const pair< int, int > coordinates,
                          emit squareSelected(coordinates);
                          selectedPiece_ = board_.getPiece(coordinates);
                      });
-    return square;
 }
 
 QPushButton& MainGui::getSquare(const pair< int, int > coordinates)

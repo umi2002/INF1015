@@ -2,6 +2,7 @@
 
 #include "../model/board.hpp"
 #include "../model/pieces/piece.hpp"
+#include "squaregui.hpp"
 
 class MainGui : public QMainWindow
 {
@@ -16,8 +17,8 @@ private:
     void connectSignals();
 
     bool         isDark(const std::pair< int, int > coordinates) const;
-    QPushButton* makeSquare(const std::pair< int, int > coordinates,
-                            const QString&              bgColor);
+    void         connectSquare(const std::pair< int, int > coordinates,
+                               SquareGui*                  square);
     QPushButton& getSquare(const std::pair< int, int > coordinates);
     void         placePiece(const std::shared_ptr< Piece >& piece);
     void         removePiece(QPushButton& square);
