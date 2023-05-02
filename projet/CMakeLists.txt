@@ -24,6 +24,7 @@ set(ALL_FILES
     "model/pieces/piece.cpp"
     "model/pieces/rook.cpp"
     "model/pieces/queen.cpp"
+    "model/pieces/bishop.cpp"
     "view/maingui.cpp"
     "view/squaregui.cpp"
     "bibliotheque_cours/bibliotheque_cours.cpp"
