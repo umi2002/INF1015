@@ -23,13 +23,12 @@ shared_ptr< Piece > Rook::clone() const
 
 vector< pair< int, int > > Rook::getValidMoves(const Board& board) const
 {
-    using nDirections::STRAIGHT, board::SIZE, iter::range;
+    using nDirections::STRAIGHT, directions::ROOK, board::SIZE, iter::range;
 
     vector< pair< int, int > > validMoves;
     pair< int, int >           coordinates = getCoordinates();
 
-    array< pair< int, int >, STRAIGHT > directions = {
-        {{0, 1}, {0, -1}, {1, 0}, {-1, 0}}};
+    const array< pair< int, int >, STRAIGHT >& directions = ROOK;
 
     for (pair< int, int > direction : directions)
     {

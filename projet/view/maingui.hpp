@@ -1,8 +1,11 @@
 #pragma once
 
-#include "../model/board.hpp"
-#include "../model/pieces/piece.hpp"
-#include "squaregui.hpp"
+#include "../model/pieces/bishop.hpp"
+#include "../model/pieces/knight.hpp"
+#include "../model/pieces/queen.hpp"
+#include "../model/pieces/rook.hpp"
+#include "boardgui.hpp"
+#include "promotegui.hpp"
 
 class MainGui : public QMainWindow
 {
@@ -13,30 +16,9 @@ public:
     ~MainGui();
 
 private:
-    void makeBoard();
-    void connectSignals();
-
-    bool         isDark(const std::pair< int, int > coordinates) const;
-    void         connectSquare(const std::pair< int, int > coordinates,
-                               SquareGui*                  square);
-    QPushButton& getSquare(const std::pair< int, int > coordinates);
-    void         placePiece(const std::shared_ptr< Piece >& piece);
-    void         removePiece(QPushButton& square);
-
-    QWidget*     boardWidget_;
-    QGridLayout* boardLayout_;
-
-    Board                    board_;
-    std::shared_ptr< Piece > selectedPiece_ = nullptr;
+    BoardGui*   boardGui_ = new BoardGui(this);
+    PromoteGui* promoteGui_ = new PromoteGui(this);
 
 private slots:
-    void unHighlightSquares();
-    void movePieceIfValid(std::pair< int, int > coordinates);
-    void highlightSquare(std::pair< int, int > coordinates);
-    void highlightValidMoves(std::pair< int, int > coordinates);
-    void indicateInvalidMove();
-
-signals:
-    void squareSelected(std::pair< int, int > coordinates);
-    void invalidMove();
+    void selectPromotionPiece(std::pair< int, int > coordinates, bool player);
 };

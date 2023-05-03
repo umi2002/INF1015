@@ -15,13 +15,12 @@ shared_ptr< Piece > Queen::clone() const
 
 vector< pair< int, int > > Queen::getValidMoves(const Board& board) const
 {
-    using nDirections::TOTAL, board::SIZE, iter::range;
+    using nDirections::TOTAL, directions::QUEEN, board::SIZE, iter::range;
 
     vector< pair< int, int > > validMoves;
     pair< int, int >           coordinates = getCoordinates();
 
-    array< pair< int, int >, TOTAL > directions = {
-        {{1, 1}, {1, 0}, {1, -1}, {0, 1}, {0, -1}, {-1, 1}, {-1, 0}, {-1, -1}}};
+    const array< pair< int, int >, TOTAL >& directions = QUEEN;
 
     for (const pair< int, int >& direction : directions)
     {

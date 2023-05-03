@@ -15,19 +15,12 @@ shared_ptr< Piece > Knight::clone() const
 
 vector< pair< int, int > > Knight::getValidMoves(const Board& board) const
 {
-    using nDirections::TOTAL, board::SIZE, iter::range;
+    using nDirections::TOTAL, directions::KNIGHT, board::SIZE, iter::range;
 
     vector< pair< int, int > > validMoves;
     pair< int, int >           coordinates = getCoordinates();
 
-    array< pair< int, int >, TOTAL > directions = {{{1, 2},
-                                                    {1, -2},
-                                                    {-1, 2},
-                                                    {-1, -2},
-                                                    {2, 1},
-                                                    {2, -1},
-                                                    {-2, 1},
-                                                    {-2, -1}}};
+    const array< pair< int, int >, TOTAL >& directions = KNIGHT;
 
     for (const pair< int, int >& direction : directions)
     {
@@ -41,4 +34,11 @@ vector< pair< int, int > > Knight::getValidMoves(const Board& board) const
     }
 
     return validMoves;
+}
+
+const QString Knight::getName() const
+{
+    using namespace piece;
+
+    return getPlayer() ? WHITE_KNIGHT : BLACK_KNIGHT;
 }

@@ -10,16 +10,19 @@
 
 #include "pieces/bishop.hpp"
 #include "pieces/king.hpp"
+#include "pieces/knight.hpp"
 #include "pieces/pawn.hpp"
 #include "pieces/queen.hpp"
 #include "pieces/rook.hpp"
+
+using namespace coordinates;
+using namespace nDirections;
+using namespace nPieces;
 
 using std::shared_ptr, std::vector, std::array, std::pair;
 
 Board::Board()
 {
-    using namespace coordinates;
-
     for (array< shared_ptr< Piece >, board::SIZE >& row : board_)
     {
         for (shared_ptr< Piece >& piece : row)
@@ -27,53 +30,95 @@ Board::Board()
             piece = nullptr;
         }
     }
+}
 
-    pair< int, int > whiteKingCoords = WHITE_KING;
-    makePiece< King >(whiteKingCoords, true);
-
-    pair< int, int > blackKingCoords = BLACK_KING;
-    makePiece< King >(blackKingCoords, false);
-
-    pair< int, int > whiteQueenCoords = WHITE_QUEEN;
-    makePiece< Queen >(whiteQueenCoords, true);
-
-    pair< int, int > blackQueenCoords = BLACK_QUEEN;
-    makePiece< Queen >(blackQueenCoords, false);
-
-    vector< pair< int, int > > whitePawnCoords = WHITE_PAWN;
-    for (const pair< int, int >& coordinates : whitePawnCoords)
+void Board::addKings()
+{
+    const array< pair< int, int >, KING >& whiteKingCoords = WHITE_KING;
+    for (const pair< int, int >& coordinates : whiteKingCoords)
     {
-        makePiece< Pawn >(coordinates, true);
+        makePiece< King >(coordinates, true);
     }
 
-    vector< pair< int, int > > blackPawnCoords = BLACK_PAWN;
-    for (const pair< int, int >& coordinates : blackPawnCoords)
+    const array< pair< int, int >, KING >& blackKingCoords = BLACK_KING;
+    for (const pair< int, int >& coordinates : blackKingCoords)
     {
-        makePiece< Pawn >(coordinates, false);
+        makePiece< King >(coordinates, false);
+    }
+}
+
+void Board::addQueens()
+{
+    const array< pair< int, int >, QUEEN >& whiteQueenCoords = WHITE_QUEEN;
+    for (const pair< int, int >& coordinates : whiteQueenCoords)
+    {
+        makePiece< Queen >(coordinates, true);
     }
 
-    vector< pair< int, int > > whiteRookCoords = WHITE_ROOK;
+    const array< pair< int, int >, QUEEN >& blackQueenCoords = BLACK_QUEEN;
+    for (const pair< int, int >& coordinates : blackQueenCoords)
+    {
+        makePiece< Queen >(coordinates, false);
+    }
+}
+
+void Board::addRooks()
+{
+    const array< pair< int, int >, ROOK >& whiteRookCoords = WHITE_ROOK;
     for (const pair< int, int >& coordinates : whiteRookCoords)
     {
         makePiece< Rook >(coordinates, true);
     }
 
-    vector< pair< int, int > > blackRookCoords = BLACK_ROOK;
+    const array< pair< int, int >, ROOK >& blackRookCoords = BLACK_ROOK;
     for (const pair< int, int >& coordinates : blackRookCoords)
     {
         makePiece< Rook >(coordinates, false);
     }
+}
 
-    vector< pair< int, int > > whiteBishopCoords = WHITE_BISHOP;
+void Board::addBishops()
+{
+    const array< pair< int, int >, BISHOP >& whiteBishopCoords = WHITE_BISHOP;
     for (const pair< int, int >& coordinates : whiteBishopCoords)
     {
         makePiece< Bishop >(coordinates, true);
     }
 
-    vector< pair< int, int > > blackBishopCoords = BLACK_BISHOP;
+    const array< pair< int, int >, BISHOP >& blackBishopCoords = BLACK_BISHOP;
     for (const pair< int, int >& coordinates : blackBishopCoords)
     {
         makePiece< Bishop >(coordinates, false);
+    }
+}
+
+void Board::addKnights()
+{
+    const array< pair< int, int >, KNIGHT >& whiteKnightCoords = WHITE_KNIGHT;
+    for (const pair< int, int >& coordinates : whiteKnightCoords)
+    {
+        makePiece< Knight >(coordinates, true);
+    }
+
+    const array< pair< int, int >, KNIGHT >& blackKnightCoords = BLACK_KNIGHT;
+    for (const pair< int, int >& coordinates : blackKnightCoords)
+    {
+        makePiece< Knight >(coordinates, false);
+    }
+}
+
+void Board::addPawns()
+{
+    const array< pair< int, int >, PAWN >& whitePawnCoords = WHITE_PAWN;
+    for (const pair< int, int >& coordinates : whitePawnCoords)
+    {
+        makePiece< Pawn >(coordinates, true);
+    }
+
+    const array< pair< int, int >, PAWN >& blackPawnCoords = BLACK_PAWN;
+    for (const pair< int, int >& coordinates : blackPawnCoords)
+    {
+        makePiece< Pawn >(coordinates, false);
     }
 }
 

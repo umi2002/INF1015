@@ -11,6 +11,14 @@ public:
     Board();
     ~Board();
 
+    void addKings();
+    void addQueens();
+    void addRooks();
+    void addBishops();
+    void addKnights();
+    void addPawns();
+    void addPieces();
+
     bool isTurn(bool player) const;
     bool isOutOfBounds(const std::pair< int, int > coordinates) const;
     bool isOccupied(const std::pair< int, int > coordinates) const;

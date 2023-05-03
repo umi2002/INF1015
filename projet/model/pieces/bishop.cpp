@@ -15,13 +15,12 @@ shared_ptr< Piece > Bishop::clone() const
 
 vector< pair< int, int > > Bishop::getValidMoves(const Board& board) const
 {
-    using nDirections::DIAGONAL, board::SIZE, iter::range;
+    using nDirections::DIAGONAL, directions::BISHOP, board::SIZE, iter::range;
 
     vector< pair< int, int > > validMoves;
     pair< int, int >           coordinates = getCoordinates();
 
-    array< pair< int, int >, DIAGONAL > directions = {
-        {{1, 1}, {1, -1}, {-1, 1}, {-1, -1}}};
+    const array< pair< int, int >, DIAGONAL >& directions = BISHOP;
 
     for (const pair< int, int >& direction : directions)
     {

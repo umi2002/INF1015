@@ -25,8 +25,11 @@ set(ALL_FILES
     "model/pieces/rook.cpp"
     "model/pieces/queen.cpp"
     "model/pieces/bishop.cpp"
+    "model/pieces/knight.cpp"
     "view/maingui.cpp"
+    "view/boardgui.cpp"
     "view/squaregui.cpp"
+    "view/promotegui.cpp"
     "bibliotheque_cours/bibliotheque_cours.cpp"
     "bibliotheque_cours/verification_allocation.cpp"
 
