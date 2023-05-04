@@ -10,20 +10,34 @@
 
 MainGui::MainGui(QWidget* parent) : QMainWindow(parent)
 {
-    setFixedSize(square::SIZE * board::SIZE);
+    setFixedSize(square::SIZE * board::SIZE + controlButton::SIZE);
+    makeMainGui();
+    connectSignals();
 
+    setCentralWidget(mainGuiWidget_);
+    show();
+}
+
+MainGui::~MainGui() { }
+
+void MainGui::makeMainGui()
+{
+    mainGuiWidget_->setLayout(mainGuiLayout_);
+    mainGuiLayout_->addWidget(controlButtonsWidget_);
+    mainGuiLayout_->addWidget(boardGui_);
+    controlButtonsWidget_->setLayout(controlButtonsLayout_);
+    controlButtonsLayout_->addWidget(newButton_);
+    controlButtonsLayout_->addWidget(quitButton_);
+}
+
+void MainGui::connectSignals()
+{
     QObject::connect(boardGui_,
                      SIGNAL(promotion(std::pair< int, int >, bool)),
                      this,
                      SLOT(selectPromotionPiece(std::pair< int, int >, bool)));
-
-    setCentralWidget(boardGui_);
-    show();
-}
-
-MainGui::~MainGui()
-{
-    delete boardGui_;
+    QObject::connect(newButton_, SIGNAL(clicked()), this, SLOT(makeNewGame()));
+    QObject::connect(quitButton_, SIGNAL(clicked()), this, SLOT(close()));
 }
 
 void MainGui::selectPromotionPiece(std::pair< int, int > coordinates,
@@ -31,7 +45,7 @@ void MainGui::selectPromotionPiece(std::pair< int, int > coordinates,
 {
     using std::shared_ptr, std::make_shared;
 
-    promoteGui_->exec();
+    promoteGui_->display(player);
     char promotionPiece = promoteGui_->getPromotionPiece();
 
     switch (promotionPiece)
@@ -51,4 +65,15 @@ void MainGui::selectPromotionPiece(std::pair< int, int > coordinates,
         default :
             break;
     }
+}
+
+void MainGui::makeNewGame()
+{
+    delete boardGui_;
+    boardGui_ = new BoardGui(this);
+    connect(boardGui_,
+            SIGNAL(promotion(std::pair< int, int >, bool)),
+            this,
+            SLOT(selectPromotionPiece(std::pair< int, int >, bool)));
+    mainGuiLayout_->addWidget(boardGui_);
 }

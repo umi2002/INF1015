@@ -2,6 +2,7 @@
 
 #include "../constants.hpp"
 #include "../libraries.hpp"
+#include "squaregui.hpp"
 
 class PromoteGui : public QDialog
 {
@@ -9,17 +10,20 @@ class PromoteGui : public QDialog
 
 public:
     PromoteGui(QWidget* parent = nullptr);
+    ~PromoteGui();
     char getPromotionPiece() const;
+    void display(bool player);
 
 private:
-    void connectButtons();
+    void connectSquares();
+    void makeSquares();
 
     char         promotionPiece_;
-    QHBoxLayout* layout_       = new QHBoxLayout(this);
-    QPushButton* queenButton_  = new QPushButton(this);
-    QPushButton* rookButton_   = new QPushButton(this);
-    QPushButton* bishopButton_ = new QPushButton(this);
-    QPushButton* knightButton_ = new QPushButton(this);
+    QHBoxLayout* layout_;
+    SquareGui*   queenButton_;
+    SquareGui*   rookButton_;
+    SquareGui*   bishopButton_;
+    SquareGui*   knightButton_;
 
 private slots:
     void onQueenClicked();

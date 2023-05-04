@@ -10,6 +10,7 @@
 #include <QPushButton>
 #include <QSize>
 #include <QString>
+#include <QVBoxLayout>
 #include <algorithm>
 #include <array>
 #include <cppitertools/range.hpp>

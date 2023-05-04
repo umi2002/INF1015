@@ -32,6 +32,8 @@ Board::Board()
     }
 }
 
+Board::~Board() { }
+
 void Board::addKings()
 {
     const array< pair< int, int >, KING >& whiteKingCoords = WHITE_KING;
@@ -122,7 +124,15 @@ void Board::addPawns()
     }
 }
 
-Board::~Board() { }
+void Board::addPieces()
+{
+    addKings();
+    addQueens();
+    addRooks();
+    addBishops();
+    addKnights();
+    addPawns();
+}
 
 bool Board::isTurn(bool player) const
 {

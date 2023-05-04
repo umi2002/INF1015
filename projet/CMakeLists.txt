@@ -34,7 +34,8 @@ set(ALL_FILES
     "bibliotheque_cours/verification_allocation.cpp"
 
     "tests/testboard.cpp"
-    "tests/testpiece.cpp"
+    "tests/boardunittest.cpp"
+    "tests/pieceunittest.cpp"
 )
 
 add_executable(${PROJECT_NAME} ${ALL_FILES})

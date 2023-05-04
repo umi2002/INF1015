@@ -105,5 +105,10 @@ namespace directions
 
 namespace promotionWindow
 {
-    const QSize SIZE = QSize(300, 100);
+    const QSize SIZE = QSize(500, 200);
 }  //namespace promotionWindow
+
+namespace controlButton
+{
+    const QSize SIZE = QSize(0, 50);
+}  //namespace controlButton

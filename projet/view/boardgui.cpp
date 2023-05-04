@@ -12,6 +12,9 @@ using iter::range, std::shared_ptr, std::pair, std::vector;
 
 BoardGui::BoardGui(QWidget* parent) : QWidget(parent)
 {
+    using namespace square;
+
+    board_.addPieces();
     boardLayout_ = new QGridLayout(this);
 
     QString bgColor = "";
@@ -19,7 +22,7 @@ BoardGui::BoardGui(QWidget* parent) : QWidget(parent)
     {
         for (int j : range(board::SIZE))
         {
-            bgColor = isDark({i, j}) ? square::DARK_BG : square::LIGHT_BG;
+            bgColor           = isDark({i, j}) ? DARK_BG : LIGHT_BG;
             SquareGui* square = new SquareGui(bgColor, this);
             connectSquare({i, j}, square);
             boardLayout_->addWidget(square, i, j);
@@ -37,16 +40,7 @@ BoardGui::BoardGui(QWidget* parent) : QWidget(parent)
     connectSignals();
 }
 
-BoardGui::~BoardGui()
-{
-    for (int i : range(board::SIZE))
-    {
-        for (int j : range(board::SIZE))
-        {
-            delete boardLayout_->itemAtPosition(i, j)->widget();
-        }
-    }
-}
+BoardGui::~BoardGui() { }
 
 void BoardGui::connectSignals()
 {

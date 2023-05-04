@@ -49,6 +49,8 @@ signals:
 template< typename T >
 void BoardGui::addPiece(std::pair< int, int > coordinates, bool player)
 {
+    std::shared_ptr< Piece > piece = board_.getPiece(coordinates);
+    board_.removePiece(piece);
     board_.makePiece< T >(coordinates, player);
     placePiece(board_.getPiece(coordinates));
 }

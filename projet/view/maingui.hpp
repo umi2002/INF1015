@@ -16,9 +16,21 @@ public:
     ~MainGui();
 
 private:
-    BoardGui*   boardGui_ = new BoardGui(this);
+    void makeMainGui();
+    void connectSignals();
+
+    QWidget*     mainGuiWidget_ = new QWidget(this);
+    QVBoxLayout* mainGuiLayout_ = new QVBoxLayout(mainGuiWidget_);
+
+    BoardGui*   boardGui_   = new BoardGui(this);
     PromoteGui* promoteGui_ = new PromoteGui(this);
 
+    QWidget*     controlButtonsWidget_ = new QWidget(this);
+    QHBoxLayout* controlButtonsLayout_ = new QHBoxLayout(controlButtonsWidget_);
+    QPushButton* newButton_  = new QPushButton("New", controlButtonsWidget_);
+    QPushButton* quitButton_ = new QPushButton("Quit", controlButtonsWidget_);
+
 private slots:
+    void makeNewGame();
     void selectPromotionPiece(std::pair< int, int > coordinates, bool player);
 };

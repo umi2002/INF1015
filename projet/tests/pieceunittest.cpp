@@ -19,6 +19,7 @@
 TEST(Piece, king)
 {
     Board board;
+    board.addPieces();
 
     testing::internal::CaptureStdout();
     board.makePiece< King >({5, 5}, true);
