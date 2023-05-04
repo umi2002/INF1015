@@ -8,7 +8,8 @@ class Piece;
 class Board
 {
 public:
-    Board(std::string simplifiedFEN = "rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR w");
+    Board(std::string simplifiedFEN =
+              "rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR w");
     ~Board();
 
     void convertFEN(std::string simplifiedFEN);

@@ -6,6 +6,7 @@
 #include "../model/pieces/rook.hpp"
 #include "boardgui.hpp"
 #include "promotegui.hpp"
+#include "positionsgui.hpp"
 
 class MainGui : public QMainWindow
 {
@@ -24,6 +25,7 @@ private:
 
     BoardGui*   boardGui_   = new BoardGui(this);
     PromoteGui* promoteGui_ = new PromoteGui(this);
+    PositionsGui* positionsGui_ = new PositionsGui(this);
 
     QWidget*     controlButtonsWidget_ = new QWidget(this);
     QHBoxLayout* controlButtonsLayout_ = new QHBoxLayout(controlButtonsWidget_);

@@ -6,14 +6,15 @@
  * Créé le 12 avril 2023
  */
 
-#include "gtest/gtest.h"
 #include "../model/board.hpp"
-#include "../model/pieces/king.hpp"
-#include "../model/pieces/queen.hpp"
-#include "../model/pieces/rook.hpp"
 #include "../model/pieces/bishop.hpp"
+#include "../model/pieces/king.hpp"
 #include "../model/pieces/knight.hpp"
 #include "../model/pieces/pawn.hpp"
+#include "../model/pieces/queen.hpp"
+#include "../model/pieces/rook.hpp"
+
+#include "gtest/gtest.h"
 
 using namespace coordinates;
 
@@ -346,7 +347,7 @@ TEST(BoardTest, moveWhitePiece)
 {
     using nPieces::ROOK, std::shared_ptr;
 
-    Board board;
+    Board  board;
     size_t activePiecesCount = board.getActivePieces().size();
 
     shared_ptr< Piece > piece = board.getPiece(WHITE_KING[0]);
@@ -360,7 +361,7 @@ TEST(BoardTest, moveBlackPiece)
 {
     using nPieces::ROOK, std::shared_ptr;
 
-    Board board;
+    Board  board;
     size_t activePiecesCount = board.getActivePieces().size();
 
     shared_ptr< Piece > piece = board.getPiece(BLACK_KING[0]);

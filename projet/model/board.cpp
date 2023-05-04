@@ -26,9 +26,9 @@ Board::Board(std::string simplifiedFEN)
     using std::isdigit, iter::range, board::SIZE;
 
     istringstream fenStream(simplifiedFEN);
-    int row = 0;
-    int col = 0;
-    char c;
+    int           row = 0;
+    int           col = 0;
+    char          c;
 
     while (fenStream.get(c) && c != ' ')
     {
@@ -49,30 +49,30 @@ Board::Board(std::string simplifiedFEN)
         else
         {
             pair< int, int > coordinates = {row, col++};
-            bool player = isupper(c);
-            c = tolower(c);
+            bool             player      = isupper(c);
+            c                            = tolower(c);
 
             switch (c)
             {
-                case 'p':
+                case 'p' :
                     makePiece< Pawn >(coordinates, player);
                     break;
-                case 'n':
+                case 'n' :
                     makePiece< Knight >(coordinates, player);
                     break;
-                case 'b':
+                case 'b' :
                     makePiece< Bishop >(coordinates, player);
                     break;
-                case 'r':
+                case 'r' :
                     makePiece< Rook >(coordinates, player);
                     break;
-                case 'q':
+                case 'q' :
                     makePiece< Queen >(coordinates, player);
                     break;
-                case 'k':
+                case 'k' :
                     makePiece< King >(coordinates, player);
                     break;
-                default:
+                default :
                     break;
             }
         }

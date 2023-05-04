@@ -8,9 +8,9 @@
 
 #include "boardgui.hpp"
 
-using iter::range, std::shared_ptr, std::pair, std::vector;
+using iter::range, std::shared_ptr, std::pair, std::vector, std::string;
 
-BoardGui::BoardGui(QWidget* parent) : QWidget(parent)
+BoardGui::BoardGui(QWidget* parent, string fen) : QWidget(parent), board_(fen)
 {
     using namespace square;
 

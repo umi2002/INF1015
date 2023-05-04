@@ -69,8 +69,9 @@ void MainGui::selectPromotionPiece(std::pair< int, int > coordinates,
 
 void MainGui::makeNewGame()
 {
+    positionsGui_->exec();
     delete boardGui_;
-    boardGui_ = new BoardGui(this);
+    boardGui_ = new BoardGui(this, positionsGui_->getFen());
     connect(boardGui_,
             SIGNAL(promotion(std::pair< int, int >, bool)),
             this,

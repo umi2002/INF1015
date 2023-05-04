@@ -30,11 +30,13 @@ set(ALL_FILES
     "view/boardgui.cpp"
     "view/squaregui.cpp"
     "view/promotegui.cpp"
+    "view/positionsgui.cpp"
     "bibliotheque_cours/bibliotheque_cours.cpp"
     "bibliotheque_cours/verification_allocation.cpp"
 
     "tests/boardunittest.cpp"
     "tests/pieceunittest.cpp"
+    "tests/testpiece.cpp"
 )
 
 add_executable(${PROJECT_NAME} ${ALL_FILES})

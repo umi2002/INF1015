@@ -1,6 +1,7 @@
 #pragma once
 
 #include <QApplication>
+#include <QComboBox>
 #include <QDialog>
 #include <QFont>
 #include <QGridLayout>

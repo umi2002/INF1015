@@ -6,14 +6,23 @@
  * Créé le 12 avril 2023
  */
 
-#include "../model/board.hpp"
+#include "testpiece.hpp"
 #include "../model/pieces/king.hpp"
+#include "../model/pieces/queen.hpp"
 #include "../model/pieces/pawn.hpp"
 #include "../model/pieces/rook.hpp"
+#include "../model/pieces/bishop.hpp"
+#include "../model/pieces/knight.hpp"
 
-#include "gtest/gtest.h"
+TEST_F(PieceTest, getCoordinates)
+{
+    std::pair< int, int > testCoordinates{5, 5};
+    board.makePiece< Bishop >(testCoordinates, true);
+    EXPECT_EQ(board.getPiece(testCoordinates)->getCoordinates(),
+              testCoordinates);
+}
 
-TEST(Piece, extraKings)
+TEST_F(PieceTest, extraKings)
 {
     Board board;
 

@@ -75,8 +75,6 @@ namespace coordinates
         {{0, 4}}};
 }  //namespace coordinates
 
-
-
 namespace nDirections
 {
     const int STRAIGHT = 4;
@@ -117,8 +115,12 @@ namespace controlButton
 
 namespace fenPositions
 {
-    const std::pair< const QString, const QVariant > STANDARD = {"Standard", "rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR"};
-    const std::pair< const QString, const QVariant > ITALIAN = {"Italian", "r1bqkbnr/pppp1ppp/2n5/4p3/2B1P3/5N2/PPPP1PPP/RNBQK2R w"};
-    const std::pair< const QString, const QVariant > SCOTCH = {"Scotch", "r1bqkbnr/pppp1ppp/2n5/4p3/2P1P3/5N2/PP1P1PPP/RNBQKB1R b"};
-    const std::pair< const QString, const QVariant > VIENNA = {"Vienna", "rnbqkbnr/pppp1ppp/8/4p3/2N5/8/PPPPPPPP/R1BQKBNR b"};
+    const std::pair< const QString, const QVariant > STANDARD = {
+        "Standard", "rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR w"};
+    const std::pair< const QString, const QVariant > ITALIAN = {
+        "Italian", "r1bqkbnr/pppp1ppp/2n5/4p3/2B1P3/5N2/PPPP1PPP/RNBQK2R b"};
+    const std::pair< const QString, const QVariant > SCOTCH = {
+        "Scotch", "rnbqkbnr/pppp1ppp/8/4p3/3PP3/5N2/PPP2PPP/RNBQKB1R b"};
+    const std::pair< const QString, const QVariant > VIENNA = {
+        "Vienna", "rnbqkbnr/pppp1ppp/8/4p3/4P3/2N5/PPPP1PPP/R1BQKBNR b"};
 }
