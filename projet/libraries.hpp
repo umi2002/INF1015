@@ -13,8 +13,11 @@
 #include <QVBoxLayout>
 #include <algorithm>
 #include <array>
+#include <cctype>
 #include <cppitertools/range.hpp>
 #include <iostream>
 #include <memory>
+#include <sstream>
+#include <string>
 #include <typeinfo>
 #include <utility>

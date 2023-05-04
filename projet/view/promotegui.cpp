@@ -8,8 +8,6 @@
 
 #include "promotegui.hpp"
 
-#include <iostream>
-
 PromoteGui::PromoteGui(QWidget* parent) : QDialog(parent)
 {
     using namespace piece;

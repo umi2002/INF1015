@@ -1,373 +1,372 @@
 /**
  * Programme qui permet de tester la classe BoardTest.
- * \file board_.cpp
+ * \file board.cpp
  * \author Hoang et Ibarissen
  * \date 20 avril 2023
  * Créé le 12 avril 2023
  */
 
-#include "testboard.hpp"
-
-#if __has_include("gtest/gtest.h")
-#    include "gtest/gtest.h"
-#endif
-#ifdef TEST_F
+#include "gtest/gtest.h"
+#include "../model/board.hpp"
+#include "../model/pieces/king.hpp"
+#include "../model/pieces/queen.hpp"
+#include "../model/pieces/rook.hpp"
+#include "../model/pieces/bishop.hpp"
+#include "../model/pieces/knight.hpp"
+#include "../model/pieces/pawn.hpp"
 
 using namespace coordinates;
 
 using nPieces::TOTAL, std::shared_ptr, std::pair, std::dynamic_pointer_cast;
 
-TEST_F(BoardTest, activePieces)
+TEST(BoardTest, activePieces)
 {
-    EXPECT_EQ(board_.getActivePieces().size(), 0);
-    board_.addPieces();
-    EXPECT_EQ(board_.getActivePieces().size(), TOTAL);
+    Board board;
+    Board emptyBoard("8/8/8/8/8/8/8/8 w");
+    EXPECT_EQ(emptyBoard.getActivePieces().size(), 0);
+    EXPECT_EQ(board.getActivePieces().size(), TOTAL);
 }
 
-TEST_F(BoardTest, whiteKingCoordinates)
+TEST(BoardTest, whiteKingCoordinates)
 {
-    board_.addKings();
+    Board board;
     for (const pair< int, int >& coordinates : WHITE_KING)
     {
         const shared_ptr< King > whiteKing =
-            dynamic_pointer_cast< King >(board_.getPiece(coordinates));
+            dynamic_pointer_cast< King >(board.getPiece(coordinates));
         EXPECT_NE(whiteKing, nullptr);
     }
 }
 
-TEST_F(BoardTest, blackKingCoordinates)
+TEST(BoardTest, blackKingCoordinates)
 {
-    board_.addKings();
+    Board board;
     for (const pair< int, int >& coordinates : BLACK_KING)
     {
         const shared_ptr< King > blackKing =
-            dynamic_pointer_cast< King >(board_.getPiece(coordinates));
+            dynamic_pointer_cast< King >(board.getPiece(coordinates));
         EXPECT_NE(blackKing, nullptr);
     }
 }
 
-TEST_F(BoardTest, whiteQueenCoordinates)
+TEST(BoardTest, whiteQueenCoordinates)
 {
-    board_.addQueens();
+    Board board;
     for (const pair< int, int >& coordinates : WHITE_QUEEN)
     {
         const shared_ptr< Queen > whiteQueen =
-            dynamic_pointer_cast< Queen >(board_.getPiece(coordinates));
+            dynamic_pointer_cast< Queen >(board.getPiece(coordinates));
         EXPECT_NE(whiteQueen, nullptr);
     }
 }
 
-TEST_F(BoardTest, blackQueenCoordinates)
+TEST(BoardTest, blackQueenCoordinates)
 {
-    board_.addQueens();
+    Board board;
     for (const pair< int, int >& coordinates : BLACK_QUEEN)
     {
         const shared_ptr< Queen > blackQueen =
-            dynamic_pointer_cast< Queen >(board_.getPiece(coordinates));
+            dynamic_pointer_cast< Queen >(board.getPiece(coordinates));
         EXPECT_NE(blackQueen, nullptr);
     }
 }
 
-TEST_F(BoardTest, whiteBishopCoordinates)
+TEST(BoardTest, whiteBishopCoordinates)
 {
-    board_.addBishops();
+    Board board;
     for (const pair< int, int >& coord : WHITE_BISHOP)
     {
         const shared_ptr< Bishop > bishop =
-            dynamic_pointer_cast< Bishop >(board_.getPiece(coord));
+            dynamic_pointer_cast< Bishop >(board.getPiece(coord));
         EXPECT_NE(bishop, nullptr);
     }
 }
 
-TEST_F(BoardTest, blackBishopCoordinates)
+TEST(BoardTest, blackBishopCoordinates)
 {
-    board_.addBishops();
+    Board board;
     for (const pair< int, int >& coord : BLACK_BISHOP)
     {
         const shared_ptr< Bishop > bishop =
-            dynamic_pointer_cast< Bishop >(board_.getPiece(coord));
+            dynamic_pointer_cast< Bishop >(board.getPiece(coord));
         EXPECT_NE(bishop, nullptr);
     }
 }
 
-TEST_F(BoardTest, whiteKnightCoordinates)
+TEST(BoardTest, whiteKnightCoordinates)
 {
-    board_.addKnights();
+    Board board;
     for (const pair< int, int >& coord : WHITE_KNIGHT)
     {
         const shared_ptr< Knight > knight =
-            dynamic_pointer_cast< Knight >(board_.getPiece(coord));
+            dynamic_pointer_cast< Knight >(board.getPiece(coord));
         EXPECT_NE(knight, nullptr);
     }
 }
 
-TEST_F(BoardTest, blackKnightCoordinates)
+TEST(BoardTest, blackKnightCoordinates)
 {
-    board_.addKnights();
+    Board board;
     for (const pair< int, int >& coord : BLACK_KNIGHT)
     {
         const shared_ptr< Knight > knight =
-            dynamic_pointer_cast< Knight >(board_.getPiece(coord));
+            dynamic_pointer_cast< Knight >(board.getPiece(coord));
         EXPECT_NE(knight, nullptr);
     }
 }
 
-TEST_F(BoardTest, whiteRookCoordinates)
+TEST(BoardTest, whiteRookCoordinates)
 {
-    board_.addRooks();
+    Board board;
     for (const pair< int, int >& coord : WHITE_ROOK)
     {
         const shared_ptr< Rook > rook =
-            dynamic_pointer_cast< Rook >(board_.getPiece(coord));
+            dynamic_pointer_cast< Rook >(board.getPiece(coord));
         EXPECT_NE(rook, nullptr);
     }
 }
 
-TEST_F(BoardTest, blackRookCoordinates)
+TEST(BoardTest, blackRookCoordinates)
 {
-    board_.addRooks();
+    Board board;
     for (const pair< int, int >& coord : BLACK_ROOK)
     {
         const shared_ptr< Rook > rook =
-            dynamic_pointer_cast< Rook >(board_.getPiece(coord));
+            dynamic_pointer_cast< Rook >(board.getPiece(coord));
         EXPECT_NE(rook, nullptr);
     }
 }
 
-TEST_F(BoardTest, whitePawnCoordinates)
+TEST(BoardTest, whitePawnCoordinates)
 {
-    board_.addPawns();
+    Board board;
     for (const pair< int, int >& coord : WHITE_PAWN)
     {
         const shared_ptr< Pawn > pawn =
-            dynamic_pointer_cast< Pawn >(board_.getPiece(coord));
+            dynamic_pointer_cast< Pawn >(board.getPiece(coord));
         EXPECT_NE(pawn, nullptr);
     }
 }
 
-TEST_F(BoardTest, blackPawnCoordinates)
+TEST(BoardTest, blackPawnCoordinates)
 {
-    board_.addPawns();
+    Board board;
     for (const pair< int, int >& coord : BLACK_PAWN)
     {
         const shared_ptr< Pawn > pawn =
-            dynamic_pointer_cast< Pawn >(board_.getPiece(coord));
+            dynamic_pointer_cast< Pawn >(board.getPiece(coord));
         EXPECT_NE(pawn, nullptr);
     }
 }
 
-TEST_F(BoardTest, whiteStarts)
+TEST(BoardTest, whiteStarts)
 {
-    EXPECT_TRUE(board_.isTurn(true));
-    EXPECT_FALSE(board_.isTurn(false));
+    Board board("8/8/8/8/8/8/8/8 w");
+    EXPECT_TRUE(board.isTurn(true));
+    EXPECT_FALSE(board.isTurn(false));
 }
 
-TEST_F(BoardTest, outOfBoundsTopLeft)
+TEST(BoardTest, blackStarts)
 {
-    EXPECT_FALSE(board_.isValidMove({-1, 0}, true));
-    EXPECT_FALSE(board_.isValidMove({-1, 0}, false));
+    Board board("8/8/8/8/8/8/8/8 b");
+    EXPECT_FALSE(board.isTurn(true));
+    EXPECT_TRUE(board.isTurn(false));
 }
 
-TEST_F(BoardTest, outOfBoundsTopRight)
+TEST(BoardTest, outOfBoundsTopLeft)
 {
-    EXPECT_FALSE(board_.isValidMove({0, -1}, true));
-    EXPECT_FALSE(board_.isValidMove({0, -1}, false));
+    Board board;
+    EXPECT_FALSE(board.isValidMove({-1, 0}, true));
+    EXPECT_FALSE(board.isValidMove({-1, 0}, false));
 }
 
-TEST_F(BoardTest, outOfBoundsBottomLeft)
+TEST(BoardTest, outOfBoundsTopRight)
 {
-    EXPECT_FALSE(board_.isValidMove({board::SIZE, 0}, true));
-    EXPECT_FALSE(board_.isValidMove({board::SIZE, 0}, false));
+    Board board;
+    EXPECT_FALSE(board.isValidMove({0, -1}, true));
+    EXPECT_FALSE(board.isValidMove({0, -1}, false));
 }
 
-TEST_F(BoardTest, outOfBoundsBottomRight)
+TEST(BoardTest, outOfBoundsBottomLeft)
 {
-    EXPECT_FALSE(board_.isValidMove({0, board::SIZE}, true));
-    EXPECT_FALSE(board_.isValidMove({0, board::SIZE}, false));
+    Board board;
+    EXPECT_FALSE(board.isValidMove({board::SIZE, 0}, true));
+    EXPECT_FALSE(board.isValidMove({board::SIZE, 0}, false));
 }
 
-TEST_F(BoardTest, canCaptureWhiteKing)
+TEST(BoardTest, outOfBoundsBottomRight)
 {
-    board_.addKings();
+    Board board;
+    EXPECT_FALSE(board.isValidMove({0, board::SIZE}, true));
+    EXPECT_FALSE(board.isValidMove({0, board::SIZE}, false));
+}
+
+TEST(BoardTest, canCaptureWhiteKing)
+{
+    Board board;
     for (const std::pair< int, int >& coord : WHITE_KING)
     {
-        EXPECT_TRUE(board_.isValidMove(coord, false));
-        EXPECT_FALSE(board_.isValidMove(coord, true));
+        EXPECT_TRUE(board.isValidMove(coord, false));
+        EXPECT_FALSE(board.isValidMove(coord, true));
     }
 }
 
-TEST_F(BoardTest, canCaptureBlackKing)
+TEST(BoardTest, canCaptureBlackKing)
 {
-    board_.addKings();
+    Board board;
     for (const std::pair< int, int >& coord : BLACK_KING)
     {
-        EXPECT_TRUE(board_.isValidMove(coord, true));
-        EXPECT_FALSE(board_.isValidMove(coord, false));
+        EXPECT_TRUE(board.isValidMove(coord, true));
+        EXPECT_FALSE(board.isValidMove(coord, false));
     }
 }
 
-TEST_F(BoardTest, canCaptureWhitePawn)
+TEST(BoardTest, canCaptureWhitePawn)
 {
-    board_.addPawns();
+    Board board;
     for (const std::pair< int, int >& coord : WHITE_PAWN)
     {
-        EXPECT_TRUE(board_.isValidMove(coord, false));
-        EXPECT_FALSE(board_.isValidMove(coord, true));
+        EXPECT_TRUE(board.isValidMove(coord, false));
+        EXPECT_FALSE(board.isValidMove(coord, true));
     }
 }
 
-TEST_F(BoardTest, canCaptureBlackPawn)
+TEST(BoardTest, canCaptureBlackPawn)
 {
-    board_.addPawns();
+    Board board;
     for (const std::pair< int, int >& coord : BLACK_PAWN)
     {
-        EXPECT_TRUE(board_.isValidMove(coord, true));
-        EXPECT_FALSE(board_.isValidMove(coord, false));
+        EXPECT_TRUE(board.isValidMove(coord, true));
+        EXPECT_FALSE(board.isValidMove(coord, false));
     }
 }
 
-TEST_F(BoardTest, canCaptureWhiteRook)
+TEST(BoardTest, canCaptureWhiteRook)
 {
-    board_.addRooks();
+    Board board;
     for (const std::pair< int, int >& coord : WHITE_ROOK)
     {
-        EXPECT_TRUE(board_.isValidMove(coord, false));
-        EXPECT_FALSE(board_.isValidMove(coord, true));
+        EXPECT_TRUE(board.isValidMove(coord, false));
+        EXPECT_FALSE(board.isValidMove(coord, true));
     }
 }
 
-TEST_F(BoardTest, canCaptureBlackRook)
+TEST(BoardTest, canCaptureBlackRook)
 {
-    board_.addRooks();
+    Board board;
     for (const std::pair< int, int >& coord : BLACK_ROOK)
     {
-        EXPECT_TRUE(board_.isValidMove(coord, true));
-        EXPECT_FALSE(board_.isValidMove(coord, false));
+        EXPECT_TRUE(board.isValidMove(coord, true));
+        EXPECT_FALSE(board.isValidMove(coord, false));
     }
 }
 
-TEST_F(BoardTest, canCaptureWhiteKnight)
+TEST(BoardTest, canCaptureWhiteKnight)
 {
-    board_.addKnights();
+    Board board;
     for (const std::pair< int, int >& coord : WHITE_KNIGHT)
     {
-        EXPECT_TRUE(board_.isValidMove(coord, false));
-        EXPECT_FALSE(board_.isValidMove(coord, true));
+        EXPECT_TRUE(board.isValidMove(coord, false));
+        EXPECT_FALSE(board.isValidMove(coord, true));
     }
 }
 
-TEST_F(BoardTest, canCaptureBlackKnight)
+TEST(BoardTest, canCaptureBlackKnight)
 {
-    board_.addKnights();
+    Board board;
     for (const std::pair< int, int >& coord : BLACK_KNIGHT)
     {
-        EXPECT_TRUE(board_.isValidMove(coord, true));
-        EXPECT_FALSE(board_.isValidMove(coord, false));
+        EXPECT_TRUE(board.isValidMove(coord, true));
+        EXPECT_FALSE(board.isValidMove(coord, false));
     }
 }
 
-TEST_F(BoardTest, canCaptureWhiteBishop)
+TEST(BoardTest, canCaptureWhiteBishop)
 {
-    board_.addBishops();
+    Board board;
     for (const std::pair< int, int >& coord : WHITE_BISHOP)
     {
-        EXPECT_TRUE(board_.isValidMove(coord, false));
-        EXPECT_FALSE(board_.isValidMove(coord, true));
+        EXPECT_TRUE(board.isValidMove(coord, false));
+        EXPECT_FALSE(board.isValidMove(coord, true));
     }
 }
 
-TEST_F(BoardTest, canCaptureBlackBishop)
+TEST(BoardTest, canCaptureBlackBishop)
 {
-    board_.addBishops();
+    Board board;
     for (const std::pair< int, int >& coord : BLACK_BISHOP)
     {
-        EXPECT_TRUE(board_.isValidMove(coord, true));
-        EXPECT_FALSE(board_.isValidMove(coord, false));
+        EXPECT_TRUE(board.isValidMove(coord, true));
+        EXPECT_FALSE(board.isValidMove(coord, false));
     }
 }
 
-TEST_F(BoardTest, canCaptureWhiteQueen)
+TEST(BoardTest, canCaptureWhiteQueen)
 {
-    board_.addQueens();
+    Board board;
     for (const std::pair< int, int >& coord : WHITE_QUEEN)
     {
-        EXPECT_TRUE(board_.isValidMove(coord, false));
-        EXPECT_FALSE(board_.isValidMove(coord, true));
+        EXPECT_TRUE(board.isValidMove(coord, false));
+        EXPECT_FALSE(board.isValidMove(coord, true));
     }
 }
 
-TEST_F(BoardTest, canCaptureBlackQueen)
+TEST(BoardTest, canCaptureBlackQueen)
 {
-    board_.addQueens();
+    Board board;
     for (const std::pair< int, int >& coord : BLACK_QUEEN)
     {
-        EXPECT_TRUE(board_.isValidMove(coord, true));
-        EXPECT_FALSE(board_.isValidMove(coord, false));
+        EXPECT_TRUE(board.isValidMove(coord, true));
+        EXPECT_FALSE(board.isValidMove(coord, false));
     }
 }
 
-TEST_F(BoardTest, isCheckEmpty)
+TEST(BoardTest, isCheckEmpty)
 {
-    board_.makePiece< King >(WHITE_KING[0], true);
-    board_.makePiece< King >(BLACK_KING[0], false);
-    EXPECT_FALSE(board_.isCheck(true));
-    EXPECT_FALSE(board_.isCheck(false));
+    Board board("4k3/8/8/8/8/8/8/4K3 w");
+    EXPECT_FALSE(board.isCheck(true));
+    EXPECT_FALSE(board.isCheck(false));
 }
 
-TEST_F(BoardTest, isCheckRook)
+TEST(BoardTest, isCheckRook)
 {
-    board_.makePiece< King >(WHITE_KING[0], true);
-    board_.makePiece< King >(BLACK_KING[0], false);
-
-    board_.makePiece< Rook >(WHITE_ROOK[0], false);
-    EXPECT_TRUE(board_.isCheck(true));
-    board_.makePiece< Rook >(BLACK_ROOK[0], true);
-    EXPECT_TRUE(board_.isCheck(false));
+    Board board("k6R/8/8/8/8/8/8/K6r w");
+    EXPECT_TRUE(board.isCheck(true));
+    EXPECT_TRUE(board.isCheck(false));
 }
 
-TEST_F(BoardTest, isCheckBlocked)
+TEST(BoardTest, isCheckBlocked)
 {
-    board_.makePiece< King >(WHITE_ROOK[0], true);
-    board_.makePiece< King >(BLACK_ROOK[0], false);
-
-    board_.makePiece< Rook >(WHITE_ROOK[1], false);
-    board_.makePiece< Rook >(BLACK_ROOK[1], true);
-
-    board_.makePiece< Rook >(WHITE_KING[0], true);
-    EXPECT_FALSE(board_.isCheck(true));
-    board_.makePiece< Rook >(BLACK_KING[0], false);
-    EXPECT_FALSE(board_.isCheck(false));
+    Board board("k3r2R/8/8/8/8/8/8/K3R2r w");
+    EXPECT_FALSE(board.isCheck(true));
+    EXPECT_FALSE(board.isCheck(false));
 }
 
-TEST_F(BoardTest, moveWhitePiece)
+TEST(BoardTest, moveWhitePiece)
 {
     using nPieces::ROOK, std::shared_ptr;
 
-    board_.addPieces();
+    Board board;
+    size_t activePiecesCount = board.getActivePieces().size();
 
-    size_t activePiecesCount = board_.getActivePieces().size();
-
-    shared_ptr< Piece > piece = board_.getPiece(WHITE_KING[0]);
-    board_.movePiece(piece, BLACK_ROOK[0]);
-    board_.movePiece(piece, BLACK_ROOK[1]);
+    shared_ptr< Piece > piece = board.getPiece(WHITE_KING[0]);
+    board.movePiece(piece, BLACK_ROOK[0]);
+    board.movePiece(piece, BLACK_ROOK[1]);
     activePiecesCount -= ROOK;
-    EXPECT_EQ(board_.getActivePieces().size(), activePiecesCount);
+    EXPECT_EQ(board.getActivePieces().size(), activePiecesCount);
 }
 
-TEST_F(BoardTest, moveBlackPiece)
+TEST(BoardTest, moveBlackPiece)
 {
     using nPieces::ROOK, std::shared_ptr;
 
-    board_.addPieces();
+    Board board;
+    size_t activePiecesCount = board.getActivePieces().size();
 
-    size_t activePiecesCount = board_.getActivePieces().size();
-
-    shared_ptr< Piece > piece = board_.getPiece(BLACK_KING[0]);
-    piece                     = board_.getPiece(BLACK_KING[0]);
-    board_.movePiece(piece, WHITE_ROOK[0]);
-    board_.movePiece(piece, WHITE_ROOK[1]);
+    shared_ptr< Piece > piece = board.getPiece(BLACK_KING[0]);
+    piece                     = board.getPiece(BLACK_KING[0]);
+    board.movePiece(piece, WHITE_ROOK[0]);
+    board.movePiece(piece, WHITE_ROOK[1]);
     activePiecesCount -= ROOK;
-    EXPECT_EQ(board_.getActivePieces().size(), activePiecesCount);
+    EXPECT_EQ(board.getActivePieces().size(), activePiecesCount);
 }
-
-#endif

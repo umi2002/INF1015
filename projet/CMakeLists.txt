@@ -33,7 +33,6 @@ set(ALL_FILES
     "bibliotheque_cours/bibliotheque_cours.cpp"
     "bibliotheque_cours/verification_allocation.cpp"
 
-    "tests/testboard.cpp"
     "tests/boardunittest.cpp"
     "tests/pieceunittest.cpp"
 )

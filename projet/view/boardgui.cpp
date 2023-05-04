@@ -14,7 +14,6 @@ BoardGui::BoardGui(QWidget* parent) : QWidget(parent)
 {
     using namespace square;
 
-    board_.addPieces();
     boardLayout_ = new QGridLayout(this);
 
     QString bgColor = "";

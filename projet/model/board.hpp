@@ -8,16 +8,10 @@ class Piece;
 class Board
 {
 public:
-    Board();
+    Board(std::string simplifiedFEN = "rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR w");
     ~Board();
 
-    void addKings();
-    void addQueens();
-    void addRooks();
-    void addBishops();
-    void addKnights();
-    void addPawns();
-    void addPieces();
+    void convertFEN(std::string simplifiedFEN);
 
     bool isTurn(bool player) const;
     bool isOutOfBounds(const std::pair< int, int > coordinates) const;

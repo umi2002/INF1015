@@ -11,15 +11,11 @@
 #include "../model/pieces/pawn.hpp"
 #include "../model/pieces/rook.hpp"
 
-#if __has_include("gtest/gtest.h")
-#    include "gtest/gtest.h"
-#endif
-#ifdef TEST
+#include "gtest/gtest.h"
 
-TEST(Piece, king)
+TEST(Piece, extraKings)
 {
     Board board;
-    board.addPieces();
 
     testing::internal::CaptureStdout();
     board.makePiece< King >({5, 5}, true);
@@ -28,5 +24,3 @@ TEST(Piece, king)
     EXPECT_EQ(output, "Too many kings\nToo many kings\n");
     EXPECT_EQ(King::getCount(), 2);
 }
-
-#endif

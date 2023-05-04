@@ -19,120 +19,71 @@ using namespace coordinates;
 using namespace nDirections;
 using namespace nPieces;
 
-using std::shared_ptr, std::vector, std::array, std::pair;
+using std::shared_ptr, std::vector, std::pair, std::istringstream;
 
-Board::Board()
+Board::Board(std::string simplifiedFEN)
 {
-    for (array< shared_ptr< Piece >, board::SIZE >& row : board_)
+    using std::isdigit, iter::range, board::SIZE;
+
+    istringstream fenStream(simplifiedFEN);
+    int row = 0;
+    int col = 0;
+    char c;
+
+    while (fenStream.get(c) && c != ' ')
     {
-        for (shared_ptr< Piece >& piece : row)
+        if (isdigit(c))
         {
-            piece = nullptr;
+            int nEmptySquares = c - '0';
+            for (int i : range(col, col + nEmptySquares))
+            {
+                board_[row][i] = nullptr;
+            }
+            col += nEmptySquares;
+        }
+        else if (c == '/')
+        {
+            row++;
+            col = 0;
+        }
+        else
+        {
+            pair< int, int > coordinates = {row, col++};
+            bool player = isupper(c);
+            c = tolower(c);
+
+            switch (c)
+            {
+                case 'p':
+                    makePiece< Pawn >(coordinates, player);
+                    break;
+                case 'n':
+                    makePiece< Knight >(coordinates, player);
+                    break;
+                case 'b':
+                    makePiece< Bishop >(coordinates, player);
+                    break;
+                case 'r':
+                    makePiece< Rook >(coordinates, player);
+                    break;
+                case 'q':
+                    makePiece< Queen >(coordinates, player);
+                    break;
+                case 'k':
+                    makePiece< King >(coordinates, player);
+                    break;
+                default:
+                    break;
+            }
         }
     }
+
+    char turn;
+    fenStream >> turn;
+    turn_ = turn == 'w';
 }
 
 Board::~Board() { }
-
-void Board::addKings()
-{
-    const array< pair< int, int >, KING >& whiteKingCoords = WHITE_KING;
-    for (const pair< int, int >& coordinates : whiteKingCoords)
-    {
-        makePiece< King >(coordinates, true);
-    }
-
-    const array< pair< int, int >, KING >& blackKingCoords = BLACK_KING;
-    for (const pair< int, int >& coordinates : blackKingCoords)
-    {
-        makePiece< King >(coordinates, false);
-    }
-}
-
-void Board::addQueens()
-{
-    const array< pair< int, int >, QUEEN >& whiteQueenCoords = WHITE_QUEEN;
-    for (const pair< int, int >& coordinates : whiteQueenCoords)
-    {
-        makePiece< Queen >(coordinates, true);
-    }
-
-    const array< pair< int, int >, QUEEN >& blackQueenCoords = BLACK_QUEEN;
-    for (const pair< int, int >& coordinates : blackQueenCoords)
-    {
-        makePiece< Queen >(coordinates, false);
-    }
-}
-
-void Board::addRooks()
-{
-    const array< pair< int, int >, ROOK >& whiteRookCoords = WHITE_ROOK;
-    for (const pair< int, int >& coordinates : whiteRookCoords)
-    {
-        makePiece< Rook >(coordinates, true);
-    }
-
-    const array< pair< int, int >, ROOK >& blackRookCoords = BLACK_ROOK;
-    for (const pair< int, int >& coordinates : blackRookCoords)
-    {
-        makePiece< Rook >(coordinates, false);
-    }
-}
-
-void Board::addBishops()
-{
-    const array< pair< int, int >, BISHOP >& whiteBishopCoords = WHITE_BISHOP;
-    for (const pair< int, int >& coordinates : whiteBishopCoords)
-    {
-        makePiece< Bishop >(coordinates, true);
-    }
-
-    const array< pair< int, int >, BISHOP >& blackBishopCoords = BLACK_BISHOP;
-    for (const pair< int, int >& coordinates : blackBishopCoords)
-    {
-        makePiece< Bishop >(coordinates, false);
-    }
-}
-
-void Board::addKnights()
-{
-    const array< pair< int, int >, KNIGHT >& whiteKnightCoords = WHITE_KNIGHT;
-    for (const pair< int, int >& coordinates : whiteKnightCoords)
-    {
-        makePiece< Knight >(coordinates, true);
-    }
-
-    const array< pair< int, int >, KNIGHT >& blackKnightCoords = BLACK_KNIGHT;
-    for (const pair< int, int >& coordinates : blackKnightCoords)
-    {
-        makePiece< Knight >(coordinates, false);
-    }
-}
-
-void Board::addPawns()
-{
-    const array< pair< int, int >, PAWN >& whitePawnCoords = WHITE_PAWN;
-    for (const pair< int, int >& coordinates : whitePawnCoords)
-    {
-        makePiece< Pawn >(coordinates, true);
-    }
-
-    const array< pair< int, int >, PAWN >& blackPawnCoords = BLACK_PAWN;
-    for (const pair< int, int >& coordinates : blackPawnCoords)
-    {
-        makePiece< Pawn >(coordinates, false);
-    }
-}
-
-void Board::addPieces()
-{
-    addKings();
-    addQueens();
-    addRooks();
-    addBishops();
-    addKnights();
-    addPawns();
-}
 
 bool Board::isTurn(bool player) const
 {
