@@ -149,10 +149,7 @@ void Board::removePiece(const std::shared_ptr< Piece >& piece)
     auto activePiecesIterator =
         find(activePieces_.begin(), activePieces_.end(), piece);
 
-    if (activePiecesIterator != activePieces_.end())
-    {
-        activePieces_.erase(activePiecesIterator);
-    }
+	activePieces_.erase(activePiecesIterator);
 
     pair< int, int > coordinates                  = piece->getCoordinates();
     board_[coordinates.first][coordinates.second] = nullptr;

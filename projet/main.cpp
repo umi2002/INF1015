@@ -50,7 +50,7 @@ int main(int argc, char* argv[])
 {
     initialiserBibliothequeCours(argc, argv);
 
-    QApplication app(argc, argv);
-    MainGui      window;
-    return app.exec();
+    //QApplication app(argc, argv);
+    //MainGui      window;
+    //return app.exec();
 }

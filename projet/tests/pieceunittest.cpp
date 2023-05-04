@@ -27,17 +27,6 @@ TEST_F(PieceTest, move)
     EXPECT_EQ(piece->getCoordinates(), coordinates);
 }
 
-TEST_F(PieceTest, extraKings)
-{
-    testing::internal::CaptureStdout();
-    pair< int, int > coordinates = {5, 5};
-    board.makePiece< King >(coordinates, true);
-    board.makePiece< King >(coordinates, false);
-    string output = testing::internal::GetCapturedStdout();
-    EXPECT_EQ(output, "Too many kings\nToo many kings\n");
-    EXPECT_EQ(King::getCount(), 2);
-}
-
 TEST_F(PieceTest, getNameWhiteKing)
 {
     const shared_ptr< Piece >& king = board.getPiece(coordinates::WHITE_KING[0]);

@@ -14,19 +14,7 @@ using std::pair, std::vector, std::shared_ptr, std::make_shared, std::array;
 
 King::King(const pair< int, int >& coordinates, const bool& player) :
     Piece(coordinates, player)
-{
-    if (count_ > 1)
-    {
-        throw std::runtime_error("Too many kings");
-    }
-
-    ++count_;
-}
-
-King::~King()
-{
-    --count_;
-}
+{ }
 
 shared_ptr< Piece > King::clone() const
 {
@@ -62,10 +50,3 @@ const QString King::getName() const
 
     return getPlayer() ? WHITE_KING : BLACK_KING;
 }
-
-int King::getCount()
-{
-    return count_;
-}
-
-int King::count_ = 0;

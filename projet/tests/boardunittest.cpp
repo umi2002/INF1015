@@ -18,7 +18,7 @@
 
 using namespace coordinates;
 
-using nPieces::TOTAL, std::shared_ptr, std::pair, std::dynamic_pointer_cast;
+using nPieces::TOTAL, std::string, std::shared_ptr, std::pair, std::dynamic_pointer_cast;
 
 TEST(BoardTest, activePieces)
 {
@@ -322,9 +322,9 @@ TEST(BoardTest, canCaptureBlackQueen)
     }
 }
 
-TEST(BoardTest, isCheckEmpty)
+TEST(BoardTest, isCheck)
 {
-    Board board("4k3/8/8/8/8/8/8/4K3 w");
+    Board board;
     EXPECT_FALSE(board.isCheck(true));
     EXPECT_FALSE(board.isCheck(false));
 }

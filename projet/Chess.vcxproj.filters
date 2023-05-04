@@ -49,27 +49,45 @@
     <ClCompile Include="model\pieces\king.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="model\pieces\knight.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
     <ClCompile Include="model\pieces\pawn.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="model\pieces\piece.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="tests\pieceunittest.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
     <ClCompile Include="tests\testpiece.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="tests\testboard.cpp">
+    <ClCompile Include="tests\boardunittest.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="view\promotegui.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="view\squaregui.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="view\boardgui.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
     <ClCompile Include="view\maingui.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="view\positionsgui.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="libraries.hpp">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="constants.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="include\debogage_memoire.hpp">
@@ -87,12 +105,6 @@
     <ClInclude Include="model\board.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="constants.hpp">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="model\pieces\queen.hpp">
-      <Filter>Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="model\pieces\rook.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
@@ -102,18 +114,36 @@
     <ClInclude Include="model\pieces\king.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="model\pieces\knight.hpp">
+      <Filter>Header Files</Filter>
+    </ClInclude>
     <ClInclude Include="model\pieces\pawn.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="model\pieces\piece.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="model\pieces\queen.hpp">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="tests\testpiece.hpp">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
-    <QtMoc Include="view\maingui.hpp">
+    <QtMoc Include="view\promotegui.hpp">
       <Filter>Header Files</Filter>
     </QtMoc>
     <QtMoc Include="view\squaregui.hpp">
+      <Filter>Header Files</Filter>
+    </QtMoc>
+    <QtMoc Include="view\boardgui.hpp">
+      <Filter>Header Files</Filter>
+    </QtMoc>
+    <QtMoc Include="view\maingui.hpp">
+      <Filter>Header Files</Filter>
+    </QtMoc>
+    <QtMoc Include="view\positionsgui.hpp">
       <Filter>Header Files</Filter>
     </QtMoc>
   </ItemGroup>

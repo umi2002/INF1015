@@ -118,13 +118,18 @@
     <ClCompile Include="model\board.cpp" />
     <ClCompile Include="model\pieces\bishop.cpp" />
     <ClCompile Include="model\pieces\king.cpp" />
+    <ClCompile Include="model\pieces\knight.cpp" />
     <ClCompile Include="model\pieces\pawn.cpp" />
     <ClCompile Include="model\pieces\piece.cpp" />
     <ClCompile Include="model\pieces\queen.cpp" />
     <ClCompile Include="model\pieces\rook.cpp" />
-    <ClCompile Include="tests\testboard.cpp" />
+    <ClCompile Include="tests\boardunittest.cpp" />
+    <ClCompile Include="tests\pieceunittest.cpp" />
     <ClCompile Include="tests\testpiece.cpp" />
+    <ClCompile Include="view\boardgui.cpp" />
     <ClCompile Include="view\maingui.cpp" />
+    <ClCompile Include="view\positionsgui.cpp" />
+    <ClCompile Include="view\promotegui.cpp" />
     <ClCompile Include="view\squaregui.cpp" />
   </ItemGroup>
   <ItemGroup>
@@ -137,12 +142,17 @@
     <ClInclude Include="model\board.hpp" />
     <ClInclude Include="model\pieces\bishop.hpp" />
     <ClInclude Include="model\pieces\king.hpp" />
+    <ClInclude Include="model\pieces\knight.hpp" />
     <ClInclude Include="model\pieces\pawn.hpp" />
     <ClInclude Include="model\pieces\piece.hpp" />
     <ClInclude Include="model\pieces\queen.hpp" />
     <ClInclude Include="model\pieces\rook.hpp" />
-    <QtMoc Include="view\squaregui.hpp" />
+    <ClInclude Include="tests\testpiece.hpp" />
+    <QtMoc Include="view\positionsgui.hpp" />
     <QtMoc Include="view\maingui.hpp" />
+    <QtMoc Include="view\boardgui.hpp" />
+    <QtMoc Include="view\squaregui.hpp" />
+    <QtMoc Include="view\promotegui.hpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Condition="Exists('$(QtMsBuild)\qt.targets')">
