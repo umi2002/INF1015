@@ -5,8 +5,8 @@
 #include "../model/pieces/queen.hpp"
 #include "../model/pieces/rook.hpp"
 #include "boardgui.hpp"
-#include "promotegui.hpp"
 #include "positionsgui.hpp"
+#include "promotegui.hpp"
 
 class MainGui : public QMainWindow
 {
@@ -23,8 +23,8 @@ private:
     QWidget*     mainGuiWidget_ = new QWidget(this);
     QVBoxLayout* mainGuiLayout_ = new QVBoxLayout(mainGuiWidget_);
 
-    BoardGui*   boardGui_   = new BoardGui(this);
-    PromoteGui* promoteGui_ = new PromoteGui(this);
+    BoardGui*     boardGui_     = new BoardGui(this);
+    PromoteGui*   promoteGui_   = new PromoteGui(this);
     PositionsGui* positionsGui_ = new PositionsGui(this);
 
     QWidget*     controlButtonsWidget_ = new QWidget(this);

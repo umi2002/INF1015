@@ -334,15 +334,15 @@ TEST(BoardTest, isCheck)
 TEST(BoardTest, isCheckQueen)
 {
     Board board("k7/1Q6/8/8/8/8/1q6/K7 w");
-	EXPECT_TRUE(board.isCheck(true));
-	EXPECT_TRUE(board.isCheck(false));
+    EXPECT_TRUE(board.isCheck(true));
+    EXPECT_TRUE(board.isCheck(false));
 }
 
 TEST(BoardTest, isCheckPawn)
 {
-	Board board("k7/1P6/8/8/8/8/1p6/K7 w");
-	EXPECT_TRUE(board.isCheck(true));
-	EXPECT_TRUE(board.isCheck(false));
+    Board board("k7/1P6/8/8/8/8/1p6/K7 w");
+    EXPECT_TRUE(board.isCheck(true));
+    EXPECT_TRUE(board.isCheck(false));
 }
 
 TEST(BoardTest, isCheckRook)
@@ -354,16 +354,16 @@ TEST(BoardTest, isCheckRook)
 
 TEST(BoardTest, isCheckKnight)
 {
-	Board board("k7/8/1N6/8/8/1n6/8/K7 w");
-	EXPECT_TRUE(board.isCheck(true));
-	EXPECT_TRUE(board.isCheck(false));
+    Board board("k7/8/1N6/8/8/1n6/8/K7 w");
+    EXPECT_TRUE(board.isCheck(true));
+    EXPECT_TRUE(board.isCheck(false));
 }
 
 TEST(BoardTest, isCheckBishop)
 {
-	Board board("k7/1B6/8/8/8/8/1b6/K7 w");
-	EXPECT_TRUE(board.isCheck(true));
-	EXPECT_TRUE(board.isCheck(false));
+    Board board("k7/1B6/8/8/8/8/1b6/K7 w");
+    EXPECT_TRUE(board.isCheck(true));
+    EXPECT_TRUE(board.isCheck(false));
 }
 
 TEST(BoardTest, moveWhitePiece)

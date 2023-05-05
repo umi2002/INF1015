@@ -45,8 +45,7 @@ template< typename T >
 void Board::makePiece(const std::pair< int, int > coordinates,
                       const bool                  player)
 {
-	std::shared_ptr< Piece > piece =
-		std::make_shared< T >(coordinates, player);
-	board_[coordinates.first][coordinates.second] = piece;
-	activePieces_.push_back(piece);
+    std::shared_ptr< Piece > piece = std::make_shared< T >(coordinates, player);
+    board_[coordinates.first][coordinates.second] = piece;
+    activePieces_.push_back(piece);
 }

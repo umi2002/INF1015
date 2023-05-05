@@ -9,7 +9,8 @@ class BoardGui : public QWidget
     Q_OBJECT
 
 public:
-    BoardGui(QWidget* parent = nullptr, std::string fen = "rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR w");
+    BoardGui(QWidget*    parent = nullptr,
+             std::string fen = "rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR w");
     ~BoardGui();
 
     template< typename T >

@@ -27,7 +27,7 @@ PositionsGui::PositionsGui(QWidget* parent) : QDialog(parent)
             SLOT(onPositionSelected(int)));
     connect(selectButton_, SIGNAL(clicked()), this, SLOT(onButtonClicked()));
 
-    QString fen = positionComboBox_->itemData(0).toString();
+    QString fen  = positionComboBox_->itemData(0).toString();
     selectedFen_ = fen.toStdString();
 }
 
@@ -38,7 +38,7 @@ std::string PositionsGui::getFen() const
 
 void PositionsGui::onPositionSelected(int index)
 {
-    QString fen = positionComboBox_->itemData(index).toString();
+    QString fen  = positionComboBox_->itemData(index).toString();
     selectedFen_ = fen.toStdString();
 }
 
