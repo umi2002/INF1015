@@ -1,8 +1,8 @@
 /**
- * Programme qui permet de tester la classe BoardTest.
- * \file board.cpp
+ * Programme qui permet de tester les méthodes de la classe Board.
+ * \file boardunittest.cpp
  * \author Hoang et Ibarissen
- * \date 20 avril 2023
+ * \date 5 mai 2023
  * Créé le 12 avril 2023
  */
 
@@ -18,10 +18,12 @@
 
 using namespace coordinates;
 
-using nPieces::TOTAL, std::string, std::shared_ptr, std::pair, std::dynamic_pointer_cast;
+using std::string, std::shared_ptr, std::pair, std::dynamic_pointer_cast;
 
 TEST(BoardTest, activePieces)
 {
+    using nPieces::TOTAL;
+
     Board board;
     Board emptyBoard("8/8/8/8/8/8/8/8 w");
     EXPECT_EQ(emptyBoard.getActivePieces().size(), 0);
@@ -329,6 +331,20 @@ TEST(BoardTest, isCheck)
     EXPECT_FALSE(board.isCheck(false));
 }
 
+TEST(BoardTest, isCheckQueen)
+{
+    Board board("k7/1Q6/8/8/8/8/1q6/K7 w");
+	EXPECT_TRUE(board.isCheck(true));
+	EXPECT_TRUE(board.isCheck(false));
+}
+
+TEST(BoardTest, isCheckPawn)
+{
+	Board board("k7/1P6/8/8/8/8/1p6/K7 w");
+	EXPECT_TRUE(board.isCheck(true));
+	EXPECT_TRUE(board.isCheck(false));
+}
+
 TEST(BoardTest, isCheckRook)
 {
     Board board("k6R/8/8/8/8/8/8/K6r w");
@@ -336,16 +352,23 @@ TEST(BoardTest, isCheckRook)
     EXPECT_TRUE(board.isCheck(false));
 }
 
-TEST(BoardTest, isCheckBlocked)
+TEST(BoardTest, isCheckKnight)
 {
-    Board board("k3r2R/8/8/8/8/8/8/K3R2r w");
-    EXPECT_FALSE(board.isCheck(true));
-    EXPECT_FALSE(board.isCheck(false));
+	Board board("k7/8/1N6/8/8/1n6/8/K7 w");
+	EXPECT_TRUE(board.isCheck(true));
+	EXPECT_TRUE(board.isCheck(false));
+}
+
+TEST(BoardTest, isCheckBishop)
+{
+	Board board("k7/1B6/8/8/8/8/1b6/K7 w");
+	EXPECT_TRUE(board.isCheck(true));
+	EXPECT_TRUE(board.isCheck(false));
 }
 
 TEST(BoardTest, moveWhitePiece)
 {
-    using nPieces::ROOK, std::shared_ptr;
+    using nPieces::ROOK;
 
     Board  board;
     size_t activePiecesCount = board.getActivePieces().size();
@@ -359,7 +382,7 @@ TEST(BoardTest, moveWhitePiece)
 
 TEST(BoardTest, moveBlackPiece)
 {
-    using nPieces::ROOK, std::shared_ptr;
+    using nPieces::ROOK;
 
     Board  board;
     size_t activePiecesCount = board.getActivePieces().size();

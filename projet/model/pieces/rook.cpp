@@ -1,8 +1,8 @@
 /**
  * Programme qui implémente la tour d'un jeu d'échecs.
- * \file board.cpp
+ * \file rook.cpp
  * \author Hoang et Ibarissen
- * \date 20 avril 2023
+ * \date 5 mai 2023
  * Créé le 12 avril 2023
  */
 

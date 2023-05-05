@@ -1,3 +1,11 @@
+/**
+ * Programme qui implémente le fou d'un jeu d'échec.
+ * \file bishop.cpp
+ * \author Hoang et Ibarissen
+ * \date 5 mai 2023
+ * Créé le 12 avril 2023
+ */
+
 #include "bishop.hpp"
 
 #include "../board.hpp"

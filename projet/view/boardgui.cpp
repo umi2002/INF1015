@@ -2,7 +2,7 @@
  * Programme qui implémente l'affichage d'un échiquier.
  * \file boardgui.cpp
  * \author Hoang et Ibarissen
- * \date 20 avril 2023
+ * \date 5 mai 2023
  * Créé le 12 avril 2023
  */
 

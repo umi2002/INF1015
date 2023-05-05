@@ -1,14 +1,14 @@
 /**
  * Programme qui permet de tester la classe Piece et ses classes dérivées.
- * \file board.cpp
+ * \file pieceunittest.cpp
  * \author Hoang et Ibarissen
- * \date 20 avril 2023
+ * \date 5 mai 2023
  * Créé le 12 avril 2023
  */
 
 #include "testpiece.hpp"
 
-using std::pair, std::string, std::shared_ptr;
+using std::dynamic_pointer_cast, std::pair, std::string, std::shared_ptr, std::vector;
 
 TEST_F(PieceTest, getCoordinates)
 {
@@ -98,3 +98,87 @@ TEST_F(PieceTest, getNameBlackPawn)
     const shared_ptr< Piece >& pawn = board.getPiece(coordinates::BLACK_PAWN[0]);
     EXPECT_EQ(pawn->getName(), piece::BLACK_PAWN);
 }
+
+TEST_F(PieceTest, pawnPromotion)
+{
+    Board promotionBoard("kP6/8/8/8/8/8/8/Kp6 w");
+    const shared_ptr< Pawn >& whitePawn = dynamic_pointer_cast< Pawn >(promotionBoard.getPiece({0, 1}));
+    const shared_ptr< Pawn >& blackPawn = dynamic_pointer_cast< Pawn >(promotionBoard.getPiece({7, 1}));
+    EXPECT_TRUE(whitePawn->canBePromoted());
+    EXPECT_TRUE(blackPawn->canBePromoted());
+}
+
+TEST_F(PieceTest, noPromotion)
+{
+    const shared_ptr< Pawn >& whitePawn = dynamic_pointer_cast< Pawn >(board.getPiece({1, 0}));
+    const shared_ptr< Pawn >& blackPawn = dynamic_pointer_cast< Pawn >(board.getPiece({6, 0}));
+    EXPECT_FALSE(whitePawn->canBePromoted());
+    EXPECT_FALSE(blackPawn->canBePromoted());
+}
+
+TEST_F(PieceTest, filteredKingMoves)
+{
+    Board boardCheck("k6Q/8/8/8/8/8/8/8 b");
+    pair< int, int > coordinates = { 0, 0 };
+    const shared_ptr< Piece >& king = boardCheck.getPiece(coordinates);
+    vector< pair< int, int > > moves = king->getValidMoves(boardCheck);
+    king->removeSuicideMoves(boardCheck, moves);
+    const int expectedMovesCount = 2;
+    EXPECT_EQ(moves.size(), expectedMovesCount);
+}
+
+TEST_F(PieceTest, filteredQueenMoves)
+{
+    Board boardPin("kq5Q/8/8/8/8/8/8/8 b");
+    pair< int, int > coordinates = { 0, 1 };
+    const shared_ptr< Piece >& queen = boardPin.getPiece(coordinates);
+    vector< pair< int, int > > moves = queen->getValidMoves(boardPin);
+    queen->removeSuicideMoves(boardPin, moves);
+    const int expectedMovesCount = 6;
+    EXPECT_EQ(moves.size(), expectedMovesCount);
+}
+
+TEST_F(PieceTest, filteredPawnMoves)
+{
+    Board boardPin("kp5Q/8/8/8/8/8/8/8 b");
+    pair< int, int > coordinates = { 0, 1 };
+    const shared_ptr< Piece >& pawn = boardPin.getPiece(coordinates);
+    vector< pair< int, int > > moves = pawn->getValidMoves(boardPin);
+    pawn->removeSuicideMoves(boardPin, moves);
+    const int expectedMovesCount = 0;
+    EXPECT_EQ(moves.size(), expectedMovesCount);
+}
+
+TEST_F(PieceTest, filteredRookMoves)
+{
+    Board boardPin("kr5R/8/8/8/8/8/8/8 b");
+    pair< int, int > coordinates = { 0, 1 };
+    const shared_ptr< Piece >& rook = boardPin.getPiece(coordinates);
+    vector< pair< int, int > > moves = rook->getValidMoves(boardPin);
+    rook->removeSuicideMoves(boardPin, moves);
+    const int expectedMovesCount = 6;
+    EXPECT_EQ(moves.size(), expectedMovesCount);
+}
+
+TEST_F(PieceTest, filteredKnightMoves)
+{
+	Board boardPin("kn5R/8/8/8/8/8/8/8 b");
+	pair< int, int > coordinates = { 0, 1 };
+	const shared_ptr< Piece >& knight = boardPin.getPiece(coordinates);
+	vector< pair< int, int > > moves = knight->getValidMoves(boardPin);
+	knight->removeSuicideMoves(boardPin, moves);
+	const int expectedMovesCount = 0;
+	EXPECT_EQ(moves.size(), expectedMovesCount);
+}
+
+TEST_F(PieceTest, filteredBishopMoves)
+{
+    Board boardPin("kb5R/8/8/8/8/8/8/8 b");
+	pair< int, int > coordinates = { 0, 1 };
+	const shared_ptr< Piece >& bishop = boardPin.getPiece(coordinates);
+	vector< pair< int, int > > moves = bishop->getValidMoves(boardPin);
+	bishop->removeSuicideMoves(boardPin, moves);
+	const int expectedMovesCount = 0;
+	EXPECT_EQ(moves.size(), expectedMovesCount);
+}
+

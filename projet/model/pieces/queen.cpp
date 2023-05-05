@@ -1,3 +1,11 @@
+/**
+ * Programme qui implémente la reine d'un jeu d'échecs.
+ * \file queen.cpp
+ * \author Hoang et Ibarissen
+ * \date 5 mai 2023
+ * Créé le 12 avril 2023
+ */
+
 #include "queen.hpp"
 
 #include "../board.hpp"

@@ -1,3 +1,11 @@
+/**
+ * Programme qui implémente le cavalier d'un jeu d'échecs.
+ * \file board.cpp
+ * \author Hoang et Ibarissen
+ * \date 5 mai 2023
+ * Créé le 12 avril 2023
+ */
+
 #include "knight.hpp"
 
 #include "../board.hpp"

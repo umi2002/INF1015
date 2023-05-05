@@ -1,3 +1,11 @@
+/**
+ * Programme qui implémente l'affichage de sélection de positions.
+ * \file positionsgui.cpp
+ * \author Hoang et Ibarissen
+ * \date 5 mai 2023
+ * Créé le 12 avril 2023
+ */
+
 #include "positionsgui.hpp"
 
 PositionsGui::PositionsGui(QWidget* parent) : QDialog(parent)
